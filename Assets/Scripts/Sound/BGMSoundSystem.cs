@@ -11,6 +11,6 @@ public class BGMSoundSystem : MonoBehaviour
             {
                 
             })
-            .AddTo(this);
+            .AddTo(this);                
     }
 }
