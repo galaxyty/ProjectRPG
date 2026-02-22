@@ -1,5 +1,8 @@
 Library/
 Logs/
 .vs/
+Temp/
+obj/
+MemoryCaptures/
 *.sln
 *.csproj
