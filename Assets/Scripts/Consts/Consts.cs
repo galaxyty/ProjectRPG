@@ -10,4 +10,10 @@ public static class Consts
     public static string kPATH_LOADING_SCENE_VIEW = "Prefabs/LoadingSceneView";
 
     public static string kPATH_JSON_TEST = "Json/Test";
+
+    // 오브젝트.
+    public static string kPATH_MONSTER_THIEF = "Prefabs/Monster/MonsterThief";
+
+    // 애니메이터 키.
+    public static string kANIMATOR_KEY_STATE = "State";
 }
