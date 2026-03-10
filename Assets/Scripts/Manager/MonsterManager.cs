@@ -103,6 +103,7 @@ public class MonsterManager : BaseObjectSingleton<MonsterManager>
     {
         if (_activeMonsterDic == null || _activeMonsterDic.Count <= 0)
         {
+            Debug.Log("_activeMonsterDic가 비어있음");
             return null;
         }
 

@@ -36,7 +36,7 @@ public class PlayerController : MonoBehaviour
     private const float _kATTACK_RANGE = 0.4f;
 
     // 기본 공격 역경직 시간 (1000 = 1초 단위).
-    private const int _kREVERSE_ATTACK_TIME = 400;
+    private const int _kREVERSE_ATTACK_TIME = 200;
 
     // 프로퍼티.
     public SpriteRenderer SpriteRenderer 
@@ -98,7 +98,7 @@ public class PlayerController : MonoBehaviour
         // 가까운 타겟 가져옴.
         if (_state.Value == eSTATE.Idle)
         {
-            _target.Value = MonsterManager.Instance.GetNearTarget(transform.position);            
+            _target.Value = MonsterManager.Instance.GetNearTarget(transform.position);
         }        
 
         // null 체크.
