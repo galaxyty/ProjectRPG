@@ -13,6 +13,9 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("게임 매니저 시작...");
 
+        // 60 프레임.
+        Application.targetFrameRate = 60;
+
         // 로그인 정보 확인 (추후 추가 예정).       
 
 

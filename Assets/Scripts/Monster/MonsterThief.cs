@@ -6,6 +6,7 @@ public class MonsterThief : BaseMonster
     {
         Debug.Log("도적 몬스터 초기화");
 
+        _type = Enums.MonsterType.Normal;
         SetHP(30);
 
         transform.position = new Vector3(Random.Range(-3.0f, 3.0f), Random.Range(-1.0f, 1.0f), 0);

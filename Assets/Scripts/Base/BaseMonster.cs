@@ -3,7 +3,9 @@ using UnityEngine;
 // 몬스터 기본 클래스
 public abstract class BaseMonster : MonoBehaviour, IHealth
 {
-    // 체력.
+    /// <summary>
+    /// 체력.
+    /// </summary>
     public int Hp { get; private set; }    
 
     /// <summary>
@@ -17,6 +19,18 @@ public abstract class BaseMonster : MonoBehaviour, IHealth
     public void SetHP(int hp)
     {
         Hp = hp;
+    }
+
+    /// <summary>
+    /// 몬스터 타입.
+    /// </summary>
+    protected Enums.MonsterType _type;
+
+    // 프로퍼티
+    public Enums.MonsterType Type
+    {
+        get { return _type; }
+        private set { }
     }
 
     /// <summary>

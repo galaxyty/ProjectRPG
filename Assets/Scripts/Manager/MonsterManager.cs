@@ -4,18 +4,21 @@ using UnityEngine.Pool;
 using System.Collections.Generic;
 
 public class MonsterManager : BaseObjectSingleton<MonsterManager>
-{    
-    // 몬스터 오브젝트.
-    private GameObject _monster;
+{
+    // 몬스터 프리팹 캐시용.
+    private Dictionary<string, GameObject> _monsterPrefabs = new();
 
     // 몬스터 풀.
-    private ObjectPool<BaseMonster> _pool;
+    private Dictionary<GameObject, ObjectPool<BaseMonster>> _poolDic = new();
 
     // 활성화 된 몬스터.
     private Dictionary<Enums.MonsterType, List<BaseMonster>> _activeMonsterDic = new();
 
     private bool _isReady = false;
 
+    /// <summary>
+    /// 초기화 완료 여부.
+    /// </summary>
     public bool IsReady
     {
         private set { }
@@ -25,14 +28,17 @@ public class MonsterManager : BaseObjectSingleton<MonsterManager>
     // 초기화.
     public async UniTask Initialization()
     {
-        _monster = await ResourceManager.Instance.LoadAsync<GameObject>(Consts.kPATH_MONSTER_THIEF);
+        _monsterPrefabs[Consts.kPATH_MONSTER_THIEF] = await ResourceManager.Instance.LoadAsync<GameObject>(Consts.kPATH_MONSTER_THIEF);
 
-        _pool = new ObjectPool<BaseMonster>(
-            OnCreatePool,
-            OnGetPool,
-            OnReturnPool,
-            OnDestroyPool
+        foreach (var prefab in _monsterPrefabs.Values)
+        {
+            _poolDic[prefab] = new ObjectPool<BaseMonster>(
+                () => OnCreatePool(prefab),
+                (monster) => OnGetPool(monster, _poolDic[prefab]),
+                (monster) => OnReturnPool(monster, _poolDic[prefab]),
+                OnDestroyPool
             );
+        }
 
         _activeMonsterDic[Enums.MonsterType.Boss] = new();
         _activeMonsterDic[Enums.MonsterType.Elite] = new();
@@ -46,7 +52,7 @@ public class MonsterManager : BaseObjectSingleton<MonsterManager>
     /// </summary>
     public void Spawn(Enums.MonsterType type)
     {
-        var monster = _pool.Get();
+        var monster = _poolDic[_monsterPrefabs[Consts.kPATH_MONSTER_THIEF]].Get();
 
         monster.Initialization();
 
@@ -58,7 +64,7 @@ public class MonsterManager : BaseObjectSingleton<MonsterManager>
     /// </summary>
     public void Die(Enums.MonsterType type, BaseMonster monster)
     {
-        _pool.Release(monster);
+        _poolDic[_monsterPrefabs[Consts.kPATH_MONSTER_THIEF]].Release(monster);
         _activeMonsterDic[type].Remove(monster);
     }
 
@@ -111,25 +117,25 @@ public class MonsterManager : BaseObjectSingleton<MonsterManager>
     }
 
     // 풀 생성 콜백 함수.
-    private BaseMonster OnCreatePool()
+    private BaseMonster OnCreatePool(GameObject prefab)
     {
         Debug.Log("몬스터 풀 생성");
 
-        var obj = Instantiate(_monster);
+        var obj = Instantiate(prefab);
         return obj.GetComponent<BaseMonster>();
     }
 
     // 풀에서 꺼낼 시 콜백 함수.
-    private void OnGetPool(BaseMonster monster)
+    private void OnGetPool(BaseMonster monster, ObjectPool<BaseMonster> pool)
     {
-        Debug.Log($"몬스터 풀에서 꺼냄 : {_pool.CountActive}개");
+        Debug.Log($"몬스터 풀에서 꺼냄 : {pool.CountActive}개");
         monster.gameObject.SetActive(true);
     }
 
     // 풀로 반환 시 콜백 함수.
-    private void OnReturnPool(BaseMonster monster)
+    private void OnReturnPool(BaseMonster monster, ObjectPool<BaseMonster> pool)
     {
-        Debug.Log($"몬스터 풀로 반환 : {_pool.CountActive}개");
+        Debug.Log($"몬스터 풀로 반환 : {pool.CountActive}개");
         monster.gameObject.SetActive(false);
     }
 
