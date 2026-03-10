@@ -98,7 +98,7 @@ public class PlayerController : MonoBehaviour
         // °¡±î¿î Å¸°Ù °¡Á®¿È.
         if (_state.Value == eSTATE.Idle)
         {
-            _target.Value = MonsterManager.Instance.GetNearTarget(transform.position);
+            _target.Value = MonsterManager.Instance.GetNearTarget(transform.position);            
         }        
 
         // null Ã¼Å©.

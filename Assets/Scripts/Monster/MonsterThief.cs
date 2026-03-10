@@ -15,6 +15,6 @@ public class MonsterThief : BaseMonster
     {
         Debug.Log("도적 몬스터 사망");
 
-        MonsterManager.Instance.Die(this);
+        MonsterManager.Instance.Die(Enums.MonsterType.Normal, this);
     }
 }

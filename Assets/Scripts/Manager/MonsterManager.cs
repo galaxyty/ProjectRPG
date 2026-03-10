@@ -4,7 +4,7 @@ using UnityEngine.Pool;
 using System.Collections.Generic;
 
 public class MonsterManager : BaseObjectSingleton<MonsterManager>
-{
+{    
     // 몬스터 오브젝트.
     private GameObject _monster;
 
@@ -12,7 +12,7 @@ public class MonsterManager : BaseObjectSingleton<MonsterManager>
     private ObjectPool<BaseMonster> _pool;
 
     // 활성화 된 몬스터.
-    private List<BaseMonster> _activeMonster = new();
+    private Dictionary<Enums.MonsterType, List<BaseMonster>> _activeMonsterDic = new();
 
     private bool _isReady = false;
 
@@ -34,37 +34,40 @@ public class MonsterManager : BaseObjectSingleton<MonsterManager>
             OnDestroyPool
             );
 
+        _activeMonsterDic[Enums.MonsterType.Boss] = new();
+        _activeMonsterDic[Enums.MonsterType.Elite] = new();
+        _activeMonsterDic[Enums.MonsterType.Normal] = new();
+
         _isReady = true;
     }
 
     /// <summary>
-    /// 몬스터 스폰.
+    /// 해당 타입 몬스터 스폰.
     /// </summary>
-    public void Spawn()
+    public void Spawn(Enums.MonsterType type)
     {
         var monster = _pool.Get();
 
         monster.Initialization();
 
-        _activeMonster.Add(monster);
+        _activeMonsterDic[type].Add(monster);
     }
 
     /// <summary>
     /// 몬스터 사망.
     /// </summary>
-    public void Die(BaseMonster monster)
+    public void Die(Enums.MonsterType type, BaseMonster monster)
     {
         _pool.Release(monster);
-        _activeMonster.Remove(monster);
+        _activeMonsterDic[type].Remove(monster);
     }
 
     /// <summary>
     /// 가까운 몬스터 반환.
-    /// </summary>    
+    /// </summary>
     public BaseMonster GetNearTarget(Vector3 transform)
     {
-        // null 체크.
-        if (_activeMonster == null || _activeMonster.Count <= 0)
+        if (_activeMonsterDic == null || _activeMonsterDic.Count <= 0)
         {
             return null;
         }
@@ -75,20 +78,32 @@ public class MonsterManager : BaseObjectSingleton<MonsterManager>
         // 현재 검색 된 최소 거리.
         float nearDistance = 0.0f;
 
-        // 가장 가까운 대상 탐색.
-        foreach (var monster in _activeMonster)
+        foreach (var (type, monsters) in _activeMonsterDic)
         {
-            // 거리.
-            float distance = Vector3.Distance(transform, monster.transform.position);
+            // 탐색 여부 확인.
+            bool isSearch = false;
 
-            // 현재 대상의 거리가 최소 거리보다 가까운지 확인.
-            if (nearDistance > distance || nearDistance <= 0.0f)
+            foreach (var monster in monsters)
             {
-                // 최소 거리 갱신.
-                nearDistance = distance;
+                // 거리.
+                float distance = Vector3.Distance(transform, monster.transform.position);
 
-                // 가까운 타겟 지정.
-                target = monster;
+                // 현재 대상의 거리가 최소 거리보다 가까운지 확인.
+                if (nearDistance > distance || nearDistance <= 0.0f)
+                {
+                    // 최소 거리 갱신.
+                    nearDistance = distance;
+
+                    // 가까운 타겟 지정.
+                    target = monster;
+                }
+
+                isSearch = true;
+            }
+
+            if (isSearch == true)
+            {
+                break;
             }
         }
 

@@ -7,8 +7,11 @@ public class MonsterSpawn : MonoBehaviour
     {
         // 몬스터 매니저 초기화 끝난 다음 실행 시킬 것.
         await UniTask.WaitUntil(() => MonsterManager.Instance.IsReady);
+        /*MonsterManager.Instance.Spawn();
         MonsterManager.Instance.Spawn();
-        MonsterManager.Instance.Spawn();
-        MonsterManager.Instance.Spawn();
+        MonsterManager.Instance.Spawn();*/
+        MonsterManager.Instance.Spawn(Enums.MonsterType.Normal);
+        MonsterManager.Instance.Spawn(Enums.MonsterType.Normal);
+        MonsterManager.Instance.Spawn(Enums.MonsterType.Normal);
     }
 }
