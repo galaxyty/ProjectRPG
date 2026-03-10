@@ -50,22 +50,50 @@ public class MonsterManager : BaseObjectSingleton<MonsterManager>
     /// <summary>
     /// 해당 타입 몬스터 스폰.
     /// </summary>
-    public void Spawn(Enums.MonsterType type)
+    public void Spawn(string name)
     {
-        var monster = _poolDic[_monsterPrefabs[Consts.kPATH_MONSTER_THIEF]].Get();
+        var pool = _poolDic[_monsterPrefabs[name]];
 
+        if (pool == null)
+        {
+            Debug.Log($"{name} 이(가) _poolDic 키에 존재하지 않음");
+            return;
+        }
+
+        // 풀에서 가져옴.
+        var monster = _poolDic[_monsterPrefabs[name]].Get();
+
+        if (monster == null)
+        {
+            Debug.Log($"{monster} 이(가) 풀링에 없어서 못 가져옴");
+            return;
+        }
+
+        // 초기화.
         monster.Initialization();
 
-        _activeMonsterDic[type].Add(monster);
+        // 활성화 딕셔너리 추가.
+        _activeMonsterDic[monster.Type].Add(monster);
     }
 
     /// <summary>
     /// 몬스터 사망.
     /// </summary>
-    public void Die(Enums.MonsterType type, BaseMonster monster)
-    {
-        _poolDic[_monsterPrefabs[Consts.kPATH_MONSTER_THIEF]].Release(monster);
-        _activeMonsterDic[type].Remove(monster);
+    public void Die(BaseMonster monster, string name)
+    {        
+        var pool = _poolDic[_monsterPrefabs[name]];
+
+        if (pool == null)
+        {
+            Debug.Log($"{name} 이(가) _poolDic 키에 존재하지 않음");
+            return;
+        }
+
+        // 풀로 반환.
+        pool.Release(monster);
+
+        // 활성화 딕셔너리에서 제거.
+        _activeMonsterDic[monster.Type].Remove(monster);
     }
 
     /// <summary>
