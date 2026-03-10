@@ -33,7 +33,10 @@ public class PlayerController : MonoBehaviour
     private PlayerAttackState _attackState;
 
     // 타겟 공격 시작 범위.
-    private const float kATTACK_RANGE = 0.4f;
+    private const float _kATTACK_RANGE = 0.4f;
+
+    // 기본 공격 역경직 시간 (1000 = 1초 단위).
+    private const int _kREVERSE_ATTACK_TIME = 200;
 
     // 프로퍼티.
     public SpriteRenderer SpriteRenderer 
@@ -45,6 +48,12 @@ public class PlayerController : MonoBehaviour
     public Animator Animator
     {
         get { return _animator; }
+        private set { }
+    }
+
+    public int kREVERSE_ATTACK_TIME
+    {
+        get { return _kREVERSE_ATTACK_TIME; }
         private set { }
     }
 
@@ -64,38 +73,11 @@ public class PlayerController : MonoBehaviour
     {
         // 이벤트 구독.
         _target
-            .Subscribe((target) =>
-            {
-                Debug.Log("플레이어가 타겟을 포착");
-
-                if (target == null)
-                {
-                    // 타겟이 없으면 대기 상태.
-                    _state.Value = eSTATE.Idle;
-                    return;
-                }
-
-                _moveState.SetTarget(_target.Value);
-                _attackState.SetTarget(_target.Value);
-
-                // 적을 추적할 수 있게 이동 상태.
-                _state.Value = eSTATE.Move;
-            })
+            .Subscribe(SetTarget)
             .AddTo(this);
 
         _state
-            .Subscribe((state) =>
-            {
-                Debug.Log("플레이어 상태머신 갱신");
-
-                _currentState = _state.Value switch
-                {
-                    eSTATE.Idle => _idleState,
-                    eSTATE.Move => _moveState,
-                    eSTATE.Attack => _attackState,
-                    _ => _idleState
-                };
-            })
+            .Subscribe(SetState)
             .AddTo(this);
     }
 
@@ -123,7 +105,7 @@ public class PlayerController : MonoBehaviour
         if (_target.Value != null)
         {
             // 적 추적.
-            if (Vector3.Distance(transform.position, _target.Value.transform.position) <= kATTACK_RANGE)
+            if (Vector3.Distance(transform.position, _target.Value.transform.position) <= _kATTACK_RANGE)
             {
                 // 범위 안에 들었다면 공격.
                 _state.Value = eSTATE.Attack;
@@ -132,6 +114,39 @@ public class PlayerController : MonoBehaviour
 
         // 상태 호출.
         _currentState.UpdateState();
+    }
+
+    // 타겟 여부에 따른 idle/move 변환.
+    private void SetTarget(BaseMonster target)
+    {
+        Debug.Log("플레이어가 타겟을 포착");
+
+        if (target == null)
+        {
+            // 타겟이 없으면 대기 상태.
+            _state.Value = eSTATE.Idle;
+            return;
+        }
+
+        _moveState.SetTarget(_target.Value);
+        _attackState.SetTarget(_target.Value);
+
+        // 적을 추적할 수 있게 이동 상태.
+        _state.Value = eSTATE.Move;
+    }
+
+    // 상태머신 갱신.
+    private void SetState(eSTATE state)
+    {
+        Debug.Log("플레이어 상태머신 갱신");
+
+        _currentState = _state.Value switch
+        {
+            eSTATE.Idle => _idleState,
+            eSTATE.Move => _moveState,
+            eSTATE.Attack => _attackState,
+            _ => _idleState
+        };
     }
 
     /// <summary>

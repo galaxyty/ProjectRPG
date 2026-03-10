@@ -32,7 +32,7 @@ public class PlayerAttackState : IState
 
         _controller.SpriteRenderer.flipX = dir < 0 ? true : false;
 
-        _controller.Animator.SetInteger(Consts.kANIMATOR_KEY_STATE, 2);
+        _controller.Animator.SetInteger(Consts.kANIMATOR_KEY_STATE, (int)PlayerController.eSTATE.Attack);
     }
 
     public async UniTask OnHit()
@@ -47,7 +47,7 @@ public class PlayerAttackState : IState
         _target.TakeDamage(10);
 
         _controller.Animator.enabled = false;
-        await UniTask.Delay(200);
+        await UniTask.Delay(_controller.kREVERSE_ATTACK_TIME);
         _controller.Animator.enabled = true;
     }
 }

@@ -13,6 +13,6 @@ public class PlayerIdleState : IState
     {
         Debug.Log("플레이어 대기중");
 
-        _controller.Animator.SetInteger(Consts.kANIMATOR_KEY_STATE, 0);
+        _controller.Animator.SetInteger(Consts.kANIMATOR_KEY_STATE, (int)PlayerController.eSTATE.Idle);
     }
 }

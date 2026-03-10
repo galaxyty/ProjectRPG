@@ -37,6 +37,6 @@ public class PlayerMoveState : IState
         1.0f * Time.deltaTime
         );
 
-        _controller.Animator.SetInteger(Consts.kANIMATOR_KEY_STATE, 1);
+        _controller.Animator.SetInteger(Consts.kANIMATOR_KEY_STATE, (int)PlayerController.eSTATE.Move);
     }
 }
