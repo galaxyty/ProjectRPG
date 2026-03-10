@@ -2,17 +2,17 @@ using UnityEngine;
 
 public class PlayerIdleState : IState
 {    
-    private Animator _animator;
+    private PlayerController _controller;
 
-    public PlayerIdleState(Animator animator)
+    public PlayerIdleState(PlayerController controller)
     {
-        _animator = animator;
+        _controller = controller;
     }
 
     public void UpdateState()
     {
         Debug.Log("플레이어 대기중");
 
-        _animator.SetInteger(Consts.kANIMATOR_KEY_STATE, 0);
+        _controller.Animator.SetInteger(Consts.kANIMATOR_KEY_STATE, 0);
     }
 }

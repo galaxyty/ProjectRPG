@@ -1,15 +1,16 @@
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 public class PlayerAttackState : IState
 {
-    private Animator _animator;
+    private PlayerController _controller;
 
     // 타겟.
     private BaseMonster _target = null;
 
-    public PlayerAttackState(Animator animator)
+    public PlayerAttackState(PlayerController controller)
     {
-        _animator = animator;
+        _controller = controller;
     }
 
     // 타겟 지정.
@@ -27,10 +28,14 @@ public class PlayerAttackState : IState
             return;
         }
 
-        _animator.SetInteger(Consts.kANIMATOR_KEY_STATE, 2);
+        float dir = _controller.transform.position.DirectionX(_target.transform.position);
+
+        _controller.SpriteRenderer.flipX = dir < 0 ? true : false;
+
+        _controller.Animator.SetInteger(Consts.kANIMATOR_KEY_STATE, 2);
     }
 
-    public void OnHit()
+    public async UniTask OnHit()
     {
         Debug.Log("타격 이벤트");
 
@@ -40,5 +45,9 @@ public class PlayerAttackState : IState
         }
 
         _target.TakeDamage(10);
+
+        _controller.Animator.enabled = false;
+        await UniTask.Delay(200);
+        _controller.Animator.enabled = true;
     }
 }

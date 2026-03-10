@@ -1,3 +1,5 @@
+using Cysharp.Threading.Tasks;
+using R3;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -11,7 +13,10 @@ public class PlayerController : MonoBehaviour
     }
 
     // 플레이어 상태.
-    private eSTATE _state = eSTATE.Idle;
+    private ReactiveProperty<eSTATE> _state = new();
+
+    // 타겟.
+    private ReactiveProperty<BaseMonster> _target = new();
 
     [SerializeField]
     private SpriteRenderer _spriteRenderer;
@@ -28,68 +33,110 @@ public class PlayerController : MonoBehaviour
     private PlayerAttackState _attackState;
 
     // 타겟 공격 시작 범위.
-    private const float kATTACK_RANGE = 0.5f;
+    private const float kATTACK_RANGE = 0.4f;
 
-    private void Awake()
+    // 프로퍼티.
+    public SpriteRenderer SpriteRenderer 
+    {
+        get { return _spriteRenderer; }
+        private set { }
+    }
+
+    public Animator Animator
+    {
+        get { return _animator; }
+        private set { }
+    }
+
+    void Awake()
     {
         // 상태 초기화.
-        _idleState = new(_animator);
-        _moveState = new(transform, _spriteRenderer, _animator);
-        _attackState = new(_animator);
+        _idleState = new(this);
+        _moveState = new(this);
+        _attackState = new(this);
 
         // 상태 적용.
         _currentState = _idleState;
-        _state = eSTATE.Idle;
+        _state.Value = eSTATE.Idle;
+    }
+
+    void Start()
+    {
+        // 이벤트 구독.
+        _target
+            .Subscribe((target) =>
+            {
+                Debug.Log("플레이어가 타겟을 포착");
+
+                if (target == null)
+                {
+                    // 타겟이 없으면 대기 상태.
+                    _state.Value = eSTATE.Idle;
+                    return;
+                }
+
+                _moveState.SetTarget(_target.Value);
+                _attackState.SetTarget(_target.Value);
+
+                // 적을 추적할 수 있게 이동 상태.
+                _state.Value = eSTATE.Move;
+            })
+            .AddTo(this);
+
+        _state
+            .Subscribe((state) =>
+            {
+                Debug.Log("플레이어 상태머신 갱신");
+
+                _currentState = _state.Value switch
+                {
+                    eSTATE.Idle => _idleState,
+                    eSTATE.Move => _moveState,
+                    eSTATE.Attack => _attackState,
+                    _ => _idleState
+                };
+            })
+            .AddTo(this);
     }
 
     void Update()
     {
-        CheckState();
-        SetState();
+        ApplyState();
     }
 
-    // 상태 조건 확인.
-    private void CheckState()
+    // 상태머신 적용.
+    private void ApplyState()
     {
-        var target = MonsterManager.Instance.GetNearTarget(transform.position);
-        _moveState.SetTarget(target);
-        _attackState.SetTarget(target);
-
-        // 상태 조건 확인.
-        if (target == null)
+        // 애니메이터가 비활성화 되면 상태 갱신 안함.
+        if (_animator.enabled == false)
         {
-            // 적 발견 못했으면 기본 상태.
-            _state = eSTATE.Idle;
+            return;
         }
-        else
+
+        // 가까운 타겟 가져옴.
+        if (_state.Value == eSTATE.Idle)
+        {
+            _target.Value = MonsterManager.Instance.GetNearTarget(transform.position);
+        }        
+
+        // null 체크.
+        if (_target.Value != null)
         {
             // 적 추적.
-            if (Vector3.Distance(transform.position, target.transform.position) <= kATTACK_RANGE)
-            {                
-                _state = eSTATE.Attack;
-            }
-            else
+            if (Vector3.Distance(transform.position, _target.Value.transform.position) <= kATTACK_RANGE)
             {
-                _state = eSTATE.Move;
-            }                
-        }
-    }
+                // 범위 안에 들었다면 공격.
+                _state.Value = eSTATE.Attack;
+            }
+        }        
 
-    // 상태 주입.
-    private void SetState()
-    {
-        // 상태 주입.
-        _currentState = _state switch
-        {
-            eSTATE.Idle => _idleState,
-            eSTATE.Move => _moveState,
-            eSTATE.Attack => _attackState,
-            _ => _idleState
-        };
-
+        // 상태 호출.
         _currentState.UpdateState();
     }
 
+    /// <summary>
+    /// 애니메이터 콜백 함수.
+    /// </summary>
     public void OnHit()
     {
         if (_attackState == null)
@@ -97,7 +144,15 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        _attackState.OnHit();
+        _attackState.OnHit().Forget();
+    }
+
+    /// <summary>
+    /// 애니메이터 기본 공격 종료 함수.
+    /// </summary>
+    public void OnAttackEnd()
+    {
+        _state.Value = eSTATE.Idle;
     }
 
     // 키 입력.
