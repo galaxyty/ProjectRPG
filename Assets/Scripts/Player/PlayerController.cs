@@ -98,6 +98,8 @@ public class PlayerController : MonoBehaviour
         // 가까운 타겟 가져옴.
         if (_state.Value == eSTATE.Idle)
         {
+            // 타겟 작동에 안전한 호출을 위해 null로 만들어줌.
+            _target.Value = null;
             _target.Value = MonsterManager.Instance.GetNearTarget(transform.position);
         }        
 
