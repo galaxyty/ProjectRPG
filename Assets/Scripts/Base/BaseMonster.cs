@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 // 몬스터 기본 클래스
@@ -62,7 +63,7 @@ public abstract class BaseMonster : MonoBehaviour, IHealth
     /// <summary>
     /// 피격 받을 시 호출.
     /// </summary>
-    public abstract void OnHit();
+    public abstract UniTask OnHit();
 
     /// <summary>
     /// 사망.

@@ -1,4 +1,6 @@
 // 체력 인터페이스.
+using Cysharp.Threading.Tasks;
+
 public interface IHealth
 {
     // 체력.
@@ -17,7 +19,7 @@ public interface IHealth
     /// <summary>
     /// 피격 받을 시 호출.
     /// </summary>
-    public void OnHit();    
+    public UniTask OnHit();    
 
     /// <summary>
     /// 사망 이벤트.
