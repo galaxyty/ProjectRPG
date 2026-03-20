@@ -18,4 +18,9 @@ public class MonsterThief : BaseMonster
 
         MonsterManager.Instance.Die(this, Consts.kPATH_MONSTER_THIEF);
     }
+
+    public override void OnHit()
+    {
+        _spriteRenderer.color = new Color(1, 0, 0);
+    }
 }

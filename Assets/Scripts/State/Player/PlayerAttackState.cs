@@ -44,10 +44,22 @@ public class PlayerAttackState : IState
             return;
         }
 
-        _target.TakeDamage(10);
+        // 주변 적을 공격.
+        var hits = Physics2D.OverlapCircleAll(_controller.transform.position + (Vector3)_controller.CurrentDirection * _controller.kATTACK_START_RANGE, _controller.kATTACK_RANGE);
+
+        foreach (var hit in hits)
+        {            
+            if (hit.TryGetComponent<IHealth>(out var monster))
+            {
+                monster.TakeDamage(10);
+            }
+        }
 
         _controller.Animator.enabled = false;
+
+        // 역경직 딜레이.
         await UniTask.Delay(_controller.kREVERSE_ATTACK_TIME);
+
         _controller.Animator.enabled = true;
     }
 }

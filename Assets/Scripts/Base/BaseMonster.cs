@@ -3,13 +3,13 @@ using UnityEngine;
 // 몬스터 기본 클래스
 public abstract class BaseMonster : MonoBehaviour, IHealth
 {
+    [SerializeField]
+    protected SpriteRenderer _spriteRenderer;
+
     /// <summary>
     /// 체력.
     /// </summary>
-    public int Hp { get; private set; }
-
-    [SerializeField]
-    private SpriteRenderer _spriteRenderer;
+    public int Hp { get; private set; }    
 
     /// <summary>
     /// 몬스터 초기화.
@@ -45,11 +45,13 @@ public abstract class BaseMonster : MonoBehaviour, IHealth
     /// <summary>
     /// 데미지 받음 (피격).
     /// </summary>    
-    public virtual void TakeDamage(int damage)
+    public void TakeDamage(int damage)
     {
         Debug.Log($"받은 데미지 : {damage}");
 
         Hp -= damage;
+
+        OnHit();
 
         if (Hp <= 0)
         {
@@ -58,7 +60,12 @@ public abstract class BaseMonster : MonoBehaviour, IHealth
     }
 
     /// <summary>
+    /// 피격 받을 시 호출.
+    /// </summary>
+    public abstract void OnHit();
+
+    /// <summary>
     /// 사망.
     /// </summary>
-    public abstract void OnDie();    
+    public abstract void OnDie();
 }

@@ -24,6 +24,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private Animator _animator;
 
+    // 이동중인 방향 벡터.
+    [Header("이동중인 방향 벡터")]
+    [SerializeField]
+    private Vector2 _currentDirection = Vector2.zero;
+
     // 현재 진행 중인 상태.
     private IState _currentState;
 
@@ -33,7 +38,10 @@ public class PlayerController : MonoBehaviour
     private PlayerAttackState _attackState;
 
     // 타겟 공격 시작 범위.
-    private const float _kATTACK_RANGE = 0.4f;
+    private const float _kATTACK_START_RANGE = 0.4f;
+
+    // 일반 공격 범위.
+    private const float _kATTACK_RANGE = 0.2f;
 
     // 기본 공격 역경직 시간 (1000 = 1초 단위).
     private const int _kREVERSE_ATTACK_TIME = 200;
@@ -54,6 +62,24 @@ public class PlayerController : MonoBehaviour
     public int kREVERSE_ATTACK_TIME
     {
         get { return _kREVERSE_ATTACK_TIME; }
+        private set { }
+    }
+
+    public float kATTACK_START_RANGE
+    {
+        get { return _kATTACK_START_RANGE;}
+        private set { }
+    }
+
+    public float kATTACK_RANGE
+    {
+        get { return _kATTACK_RANGE; }
+        private set { }
+    }
+
+    public Vector2 CurrentDirection
+    {
+        get { return _currentDirection; }
         private set { }
     }
 
@@ -110,7 +136,7 @@ public class PlayerController : MonoBehaviour
         if (_target.Value != null)
         {
             // 적 추적.
-            if (Vector3.Distance(transform.position, _target.Value.transform.position) <= _kATTACK_RANGE)
+            if (Vector3.Distance(transform.position, _target.Value.transform.position) <= _kATTACK_START_RANGE)
             {
                 // 범위 안에 들었다면 공격.
                 _state.Value = eSTATE.Attack;
@@ -135,6 +161,9 @@ public class PlayerController : MonoBehaviour
 
         _moveState.SetTarget(_target.Value);
         _attackState.SetTarget(_target.Value);
+
+        // 방향 벡터.
+        _currentDirection = (target.transform.position - transform.position).normalized;
 
         // 적을 추적할 수 있게 이동 상태.
         _state.Value = eSTATE.Move;
@@ -180,5 +209,12 @@ public class PlayerController : MonoBehaviour
     {
         // 이동 좌표.
         Vector2 input = value.Get<Vector2>();
+    }
+
+    private void OnDrawGizmos()
+    {
+        // 일반 공격 범위 시각화.
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position + (Vector3)_currentDirection * _kATTACK_START_RANGE, _kATTACK_RANGE);
     }
 }

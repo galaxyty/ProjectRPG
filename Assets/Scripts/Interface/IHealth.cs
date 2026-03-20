@@ -15,6 +15,11 @@ public interface IHealth
     public void SetHP(int hp);
 
     /// <summary>
+    /// 피격 받을 시 호출.
+    /// </summary>
+    public void OnHit();    
+
+    /// <summary>
     /// 사망 이벤트.
     /// </summary>
     public void OnDie();
