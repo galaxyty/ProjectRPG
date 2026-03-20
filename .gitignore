@@ -3,6 +3,7 @@ Logs/
 .vs/
 Temp/
 obj/
+.utmp/
 MemoryCaptures/
 *.sln
 *.csproj
