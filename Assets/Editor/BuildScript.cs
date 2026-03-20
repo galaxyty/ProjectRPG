@@ -1,10 +1,14 @@
+using System.Linq;
 using UnityEditor;
 
 public class BuildScript
 {
     public static void BuildAndroid()
     {
-        string[] scenes = { "Assets/Scenes/Lobby.unity" };
+        string[] scenes = EditorBuildSettings.scenes
+        .Where(scene => scene.enabled)   // Ã¼Å©µÈ ¾À¸¸
+        .Select(scene => scene.path)
+        .ToArray();
 
         BuildPipeline.BuildPlayer(
             scenes,
