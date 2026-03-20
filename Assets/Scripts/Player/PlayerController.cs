@@ -84,6 +84,9 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         ApplyState();
+
+        // 레이어 Order.
+        _spriteRenderer.sortingOrder = -(int)(transform.position.y * 100);
     }
 
     // 상태머신 적용.

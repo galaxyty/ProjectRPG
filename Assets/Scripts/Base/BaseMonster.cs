@@ -6,12 +6,21 @@ public abstract class BaseMonster : MonoBehaviour, IHealth
     /// <summary>
     /// 체력.
     /// </summary>
-    public int Hp { get; private set; }    
+    public int Hp { get; private set; }
+
+    [SerializeField]
+    private SpriteRenderer _spriteRenderer;
 
     /// <summary>
     /// 몬스터 초기화.
     /// </summary>
     public abstract void Initialization();
+
+    protected void Update()
+    {
+        // 레이어 Order.
+        _spriteRenderer.sortingOrder = -(int)(transform.position.y * 100);
+    }
 
     /// <summary>
     /// 체력 셋팅
