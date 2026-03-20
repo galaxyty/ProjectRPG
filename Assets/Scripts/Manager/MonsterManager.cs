@@ -14,6 +14,9 @@ public class MonsterManager : BaseObjectSingleton<MonsterManager>
     // 활성화 된 몬스터.
     private Dictionary<Enums.MonsterType, List<BaseMonster>> _activeMonsterDic = new();
 
+    // 하이어라키 그룹.
+    private Dictionary<Enums.MonsterType, GameObject> _hierachyDic = new();
+
     private bool _isReady = false;
 
     /// <summary>
@@ -28,8 +31,10 @@ public class MonsterManager : BaseObjectSingleton<MonsterManager>
     // 초기화.
     public async UniTask Initialization()
     {
+        // 몬스터 프리팹.
         _monsterPrefabs[Consts.kPATH_MONSTER_THIEF] = await ResourceManager.Instance.LoadAsync<GameObject>(Consts.kPATH_MONSTER_THIEF);
 
+        // 풀링 생성.
         foreach (var prefab in _monsterPrefabs.Values)
         {
             _poolDic[prefab] = new ObjectPool<BaseMonster>(
@@ -40,10 +45,28 @@ public class MonsterManager : BaseObjectSingleton<MonsterManager>
             );
         }
 
+        // 활성화 딕셔너리 생성.
         _activeMonsterDic[Enums.MonsterType.Boss] = new();
         _activeMonsterDic[Enums.MonsterType.Elite] = new();
         _activeMonsterDic[Enums.MonsterType.Normal] = new();
 
+        // 하이어라키 창 생성.
+        var group = new GameObject("MonsterPoolGroup");
+        var boss = new GameObject("MonsterBoss");
+        var elite = new GameObject("MonsterElite");
+        var normal = new GameObject("MonsterNormal");
+
+        group.transform.position = Vector3.zero;
+
+        boss.transform.parent = group.transform;
+        elite.transform.parent = group.transform;
+        normal.transform.parent = group.transform;
+
+        _hierachyDic[Enums.MonsterType.Boss] = boss;
+        _hierachyDic[Enums.MonsterType.Elite] = elite;
+        _hierachyDic[Enums.MonsterType.Normal] = normal;
+
+        // 준비 완료.
         _isReady = true;
     }
 
@@ -74,6 +97,9 @@ public class MonsterManager : BaseObjectSingleton<MonsterManager>
 
         // 활성화 딕셔너리 추가.
         _activeMonsterDic[monster.Type].Add(monster);
+
+        // 해당 하이어라키 창에 생성.
+        monster.transform.parent = _hierachyDic[monster.Type].transform;
     }
 
     /// <summary>
