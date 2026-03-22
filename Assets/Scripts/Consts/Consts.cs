@@ -16,4 +16,7 @@ public static class Consts
 
     // 애니메이터 키.
     public static string kANIMATOR_KEY_STATE = "State";
+
+    // 오디오 경로.
+    public static string kAUDIO_MAIN = "Sounds/BGM/Main";
 }

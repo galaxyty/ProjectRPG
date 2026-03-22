@@ -30,6 +30,9 @@ public class GameManager : MonoBehaviour
             return;
         }
 
+        // 오디오 매니저 초기화.
+        await AudioManager.Instance.InitializationAsync();
+
         // 로딩 싱글톤 초기화.
         await SceneLoadManager.Instance.InitializationAsync();
 

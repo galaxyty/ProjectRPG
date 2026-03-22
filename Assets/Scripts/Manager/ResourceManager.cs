@@ -6,7 +6,7 @@ public class ResourceManager : BaseObjectSingleton<ResourceManager>
     private bool _isDownload = false;
 
     /// <summary>
-    /// T타입 리소스 로드.
+    /// 리소스 폴더에서 T타입 리소스 로드.
     /// </summary>    
     public async UniTask<T> LoadAsync<T>(string key) where T : UnityEngine.Object
     {
