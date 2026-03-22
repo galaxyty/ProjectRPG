@@ -5,5 +5,6 @@ Temp/
 obj/
 .utmp/
 MemoryCaptures/
+UserSettings/
 *.sln
 *.csproj
