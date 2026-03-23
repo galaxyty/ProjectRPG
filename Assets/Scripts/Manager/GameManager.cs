@@ -30,11 +30,12 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        // 오디오 매니저 초기화.
-        await AudioManager.Instance.InitializationAsync();
+        // 각 매니저들 동시에 초기화.
+        var audioTask = AudioManager.Instance.InitializationAsync();
+        var sceneTask = SceneLoadManager.Instance.InitializationAsync();
 
-        // 로딩 싱글톤 초기화.
-        await SceneLoadManager.Instance.InitializationAsync();
+        // 두 작업이 모두 완료될 때까지 대기.
+        await UniTask.WhenAll(audioTask, sceneTask);
 
         // 씬 정보 초기화.
         await _sceneInitializer.InitializationAsync();
