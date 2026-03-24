@@ -13,10 +13,10 @@ public class PlayerStatFactory : IFactory
         Transform uiRoot = UIManager.Instance.GetRoot(UIManager.CanvasType.UI);
 
         // 로비 씬에서 생성 시킬 프리팹.
-        GameObject loadPrefab = await ResourceManager.Instance.LoadAsync<GameObject>(Consts.kPATH_PLAYER_STAT_VIEW);
+        GameObject loadPrefab = await ResourceManager.Instance.LoadAsyncToResource<GameObject>(Consts.kPATH_PLAYER_STAT_VIEW);
 
         // 모델 생성 데이터.    
-        TextAsset json = await ResourceManager.Instance.LoadAsync<TextAsset>(Consts.kPATH_JSON_TEST);
+        TextAsset json = await ResourceManager.Instance.LoadAsyncToResource<TextAsset>(Consts.kPATH_JSON_TEST);
         List<TestData> list = JsonConvert.DeserializeObject<List<TestData>>(json.text);
 
         foreach (var data in list)

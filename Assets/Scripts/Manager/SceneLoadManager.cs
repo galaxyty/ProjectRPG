@@ -26,7 +26,7 @@ public class SceneLoadManager : BaseObjectSingleton<SceneLoadManager>
         }
 
         // 리소스에서 프리팹 로드.
-        GameObject loadingSceneView = await ResourceManager.Instance.LoadAsync<GameObject>(Consts.kPATH_LOADING_SCENE_VIEW);        
+        GameObject loadingSceneView = await ResourceManager.Instance.LoadAsyncToResource<GameObject>(Consts.kPATH_LOADING_SCENE_VIEW);        
 
         // 오브젝트 생성.
         _loadingObject = Instantiate(loadingSceneView, UIManager.Instance.GetRoot(UIManager.CanvasType.LOADING));

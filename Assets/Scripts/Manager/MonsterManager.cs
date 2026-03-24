@@ -32,7 +32,7 @@ public class MonsterManager : BaseObjectSingleton<MonsterManager>
     public async UniTask Initialization()
     {
         // 몬스터 프리팹.
-        _monsterPrefabs[Consts.kPATH_MONSTER_THIEF] = await ResourceManager.Instance.LoadAsync<GameObject>(Consts.kPATH_MONSTER_THIEF);
+        _monsterPrefabs[Consts.kPATH_MONSTER_THIEF] = await ResourceManager.Instance.LoadAsyncToResource<GameObject>(Consts.kPATH_MONSTER_THIEF);
 
         // 풀링 생성.
         foreach (var prefab in _monsterPrefabs.Values)
