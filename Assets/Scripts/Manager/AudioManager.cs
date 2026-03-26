@@ -17,7 +17,12 @@ public class AudioManager : BaseObjectSingleton<AudioManager>
     {
         if (_isInit == true) return;
 
-        _audioCache.Add(Consts.kAUDIO_MAIN, await ResourceManager.Instance.LoadAsyncToResource<AudioClip>(Consts.kAUDIO_MAIN));
+        var audioMain = await ResourceManager.Instance.LoadAsync<AudioClip>(Consts.kAUDIO_MAIN);
+
+        // 미리 디코딩.
+        audioMain.LoadAudioData();
+
+        _audioCache.Add(Consts.kAUDIO_MAIN, audioMain);
 
         _isInit = true;
     }

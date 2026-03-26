@@ -19,7 +19,13 @@ MonoBehaviour:
     m_Address: Prefabs/MainMenuView
     m_ReadOnly: 0
     m_SerializedLabels:
-    - default
+    - test
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: db2850201bc4f8449aa0d3861092f93d
+    m_Address: Sounds/BGM/Main
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - test
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 8dd8987b2f5f3e84aae36e7247f0df91, type: 2}

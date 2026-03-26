@@ -121,6 +121,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1684867239350781850}
   - component: {fileID: 1101303697921315430}
+  - component: {fileID: -1300031613557815047}
   - component: {fileID: 4709190679984207583}
   m_Layer: 5
   m_Name: ResourceLoadView
@@ -157,6 +158,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5670543639917067522}
   m_CullTransparentMesh: 1
+--- !u!114 &-1300031613557815047
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5670543639917067522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e8edf89e378d1c41817b7948450ee65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &4709190679984207583
 MonoBehaviour:
   m_ObjectHideFlags: 0
