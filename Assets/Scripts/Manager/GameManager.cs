@@ -16,8 +16,12 @@ public class GameManager : MonoBehaviour
         // 60 프레임.
         Application.targetFrameRate = 60;
 
-        // 로그인 정보 확인 (추후 추가 예정).       
+        // 로그인 정보 확인 (추후 추가 예정).
 
+        // 팝업 매니저 로컬 초기화.
+        await PopupManager.Instance.InitializationLocal();
+
+        //PopupManager.Instance.Show<ResourceDownloadPopup>();
 
         // 리소스 다운로드.
         try

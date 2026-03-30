@@ -19,4 +19,7 @@ public static class Consts
 
     // 오디오 경로.
     public static string kAUDIO_MAIN = "Sounds/BGM/Main";
+
+    // 팝업 경로
+    public static string kPATH_RESOURCE_DOWNLOAD_POPUP = "Prefabs/Popup/ResourceDownloadPopup";
 }

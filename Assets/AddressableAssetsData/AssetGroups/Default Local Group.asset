@@ -14,7 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_GroupName: Default Local Group
   m_GUID: 29f4cc76e8be9f74b9c82080e32a55c8
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: 6293e1f5862a1ab4589d6b76711ac56d
+    m_Address: Prefabs/Popup/ResourceDownloadPopup
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 8dd8987b2f5f3e84aae36e7247f0df91, type: 2}
   m_SchemaSet:
