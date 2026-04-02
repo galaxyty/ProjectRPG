@@ -1,7 +1,8 @@
-using System.Collections.Generic;
-using System;
-using UnityEngine;
 using Cysharp.Threading.Tasks;
+using R3;
+using System;
+using System.Collections.Generic;
+using UnityEngine;
 
 public class PopupManager : BaseObjectSingleton<PopupManager>
 {
@@ -19,6 +20,12 @@ public class PopupManager : BaseObjectSingleton<PopupManager>
     /// </summary>
     public async UniTask InitializationLocal()
     {
+        // 이벤트 구독.
+        Observable.EveryUpdate()
+        .Where(_ => Input.GetKeyDown(KeyCode.Escape))
+        .Subscribe(_ => Close())
+        .AddTo(this);
+
         // 팝업 부모 트랜스폼.
         _parent = UIManager.Instance.GetRoot(UIManager.CanvasType.POPUP);
 
@@ -39,6 +46,12 @@ public class PopupManager : BaseObjectSingleton<PopupManager>
         {
         }
 
+        // null 체크.
+        if (basePopup == null)
+        {
+            return null;
+        }        
+
         var findTransform = _parent.Find(typeof(T).ToString());
 
         // 생성되지 않았다면 생성.
@@ -50,12 +63,38 @@ public class PopupManager : BaseObjectSingleton<PopupManager>
                 var component = obj.GetComponent<T>();
                 component.gameObject.SetActive(true);
 
+                // 백버튼 적용된거에만 푸시.
+                if (component.isBackButton == true)
+                {
+                    _popupStack.Push(component);
+                }                
+
                 return component;
             }
         }
 
         basePopup.gameObject.SetActive(true);
 
+        // 백버튼 적용된거에만 푸시.
+        if (basePopup.isBackButton == true)
+        {
+            _popupStack.Push(basePopup);
+        }        
+
         return basePopup as T;
+    }
+
+    /// <summary>
+    /// 팝업 닫기.
+    /// </summary>
+    public void Close()
+    {        
+        if (_popupStack.Count == 0)
+        {
+            return;
+        }
+
+        var popup = _popupStack.Pop();
+        popup.gameObject.SetActive(false);
     }
 }

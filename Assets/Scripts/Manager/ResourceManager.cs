@@ -75,7 +75,14 @@ public class ResourceManager : BaseObjectSingleton<ResourceManager>
             // 팝업 선택 결과 기다림.
             var isSelect = await popup.Result.Task;
 
-            Debug.Log(isSelect);
+            if (isSelect == true)
+            {
+                // 확인 버튼 누름.
+            }
+            else
+            {
+                // 취소 버튼 누름.
+            }
         }
         else
         {
@@ -84,8 +91,6 @@ public class ResourceManager : BaseObjectSingleton<ResourceManager>
 
             // 팝업 선택 결과 기다림.
             var isSelect = await popup.Result.Task;
-
-            Debug.Log(isSelect);
         }
     }
 

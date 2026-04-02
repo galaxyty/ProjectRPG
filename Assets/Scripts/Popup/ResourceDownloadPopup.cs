@@ -40,6 +40,8 @@ public class ResourceDownloadPopup : BasePopup
                 Debug.Log("번들 다운로드 시작 버튼 눌림");
 
                 Result?.TrySetResult(true);
+
+                Close();
             })
             .AddTo(this);
 
@@ -49,6 +51,8 @@ public class ResourceDownloadPopup : BasePopup
                 Debug.Log("번들 다운로드 취소 버튼 눌림");
 
                 Result?.TrySetResult(false);
+
+                Close();
             })
             .AddTo(this);
     }
