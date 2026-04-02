@@ -12,7 +12,7 @@ public class MainMenuPresenter : BasePresenter<MainMenuView, MainMenuModel>
         _view.OnNext
             .Subscribe(_ =>
             {
-                SceneLoadManager.Instance.LoadScene("TestScene").Forget();
+                SceneLoadManager.Instance.LoadScene(Consts.kSCENE_TEST_SCENE).Forget();
             });
     }
 

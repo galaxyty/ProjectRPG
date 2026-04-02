@@ -1,19 +1,15 @@
 using System;
 using UnityEngine;
 
+// ¾À °ø¿ë °ü¸®µÇ´Â UI ¸Å´ÏÀú.
 public class UIManager : BaseSingleton<UIManager>
 {
     // Äµ¹ö½º Å¸ÀÔ.
     public enum CanvasType
     {
-        UI,             // UI Äµ¹ö½º.
         POPUP,          // ÆË¾÷ Äµ¹ö½º.
         LOADING,        // ·Îµù Äµ¹ö½º. 
     }
-
-    // UI Äµ¹ö½º.
-    [SerializeField]
-    private Canvas _uiCanvas;
 
     // ÆË¾÷ Äµ¹ö½º.
     [SerializeField]
@@ -23,6 +19,13 @@ public class UIManager : BaseSingleton<UIManager>
     [SerializeField]
     private Canvas _loadingCanvas;
 
+    void Start()
+    {
+        // °ø¿ë Äµ¹ö½ºµéÀ» DontDestroyOnLoad ÇØÁÙ °Í.
+        DontDestroyOnLoad(_popupCanvas);
+        DontDestroyOnLoad(_loadingCanvas);
+    }
+
     /// <summary>
     /// Äµ¹ö½º ºÎ¸ð Æ®·£½ºÆû ¹ÝÈ¯.
     /// </summary>
@@ -30,7 +33,6 @@ public class UIManager : BaseSingleton<UIManager>
     {
         return type switch
         {
-            CanvasType.UI => _uiCanvas.transform,
             CanvasType.POPUP => _popupCanvas.transform,
             CanvasType.LOADING => _loadingCanvas.transform,
             _ => throw new ArgumentOutOfRangeException()

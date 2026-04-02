@@ -11,20 +11,11 @@ public class SceneLoadManager : BaseObjectSingleton<SceneLoadManager>
     // 로딩 바 오브젝트.
     private GameObject _loadingObject;
 
-    // 로딩 싱글톤 초기화 여부.
-    private bool _isInit = false;
-
     /// <summary>
     /// 씬 매니저 초기화.
     /// </summary>    
     public async UniTask InitializationAsync()
     {
-        // 초기화 여부 확인.
-        if (_isInit == true)
-        {
-            return;
-        }
-
         // 리소스에서 프리팹 로드.
         GameObject loadingSceneView = await ResourceManager.Instance.LoadAsyncToResource<GameObject>(Consts.kPATH_LOADING_SCENE_VIEW);        
 
@@ -37,9 +28,6 @@ public class SceneLoadManager : BaseObjectSingleton<SceneLoadManager>
         // 멤버 변수에 담기.
         _loadingSceneView = _loadingObject.GetComponent<LoadingSceneView>();
         _loadingSceneView.SetProgress(0);
-
-        // 초기화 완료.
-        _isInit = true;
     }
 
     /// <summary>

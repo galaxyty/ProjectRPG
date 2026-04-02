@@ -12,6 +12,7 @@ public class ResourceLoadView : MonoBehaviour
 
     void Awake()
     {
+        // 데이터 바인딩.
         _percent = ResourceManager.Instance.Percent.ToBindableReactiveProperty();
 
         _percent

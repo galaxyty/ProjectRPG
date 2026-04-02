@@ -72,7 +72,7 @@ MonoBehaviour:
       m_ProfileName: Default
       m_Values:
       - m_Id: 5a18515507b04164a9e2ebe53d732a97
-        m_Value: 'http://localhost:8080/[BuildTarget]'
+        m_Value: 'ServerData/[BuildTarget]'
       - m_Id: 6b17c06ae92267c418862c9ca7ea1434
         m_Value: '{UnityEngine.AddressableAssets.Addressables.RuntimePath}/[BuildTarget]'
       - m_Id: c3da52dcbd049a64683426bff935daa2

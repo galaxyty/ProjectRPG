@@ -7,10 +7,7 @@ public class PlayerStatFactory : IFactory
 {
     public async UniTask CreateAsync()
     {
-        Debug.Log("PlayerStatFactory 蒲配府 积己");        
-
-        // 牡滚胶 Root.
-        Transform uiRoot = UIManager.Instance.GetRoot(UIManager.CanvasType.UI);
+        Debug.Log("PlayerStatFactory 蒲配府 积己");
 
         // 肺厚 纠俊辑 积己 矫懦 橇府普.
         GameObject loadPrefab = await ResourceManager.Instance.LoadAsyncToResource<GameObject>(Consts.kPATH_PLAYER_STAT_VIEW);
@@ -22,7 +19,7 @@ public class PlayerStatFactory : IFactory
         foreach (var data in list)
         {
             // 橇府普 积己.
-            GameObject prefab = Object.Instantiate(loadPrefab, uiRoot);
+            GameObject prefab = Object.Instantiate(loadPrefab, null);
 
             // 轰.
             PlayerStatView playerStatView = prefab.GetComponent<PlayerStatView>();

@@ -2,13 +2,12 @@ using UnityEngine;
 
 public static class Consts
 {    
+    // 프리팹.
     public static string kPATH_PLAYER_STAT_VIEW = "Prefabs/PlayerStatView";
-
     public static string kPATH_MAIN_MENU_VIEW = "Prefabs/MainMenuView";
 
     // 로딩 뷰.
     public static string kPATH_LOADING_SCENE_VIEW = "Prefabs/LoadingSceneView";
-
     public static string kPATH_JSON_TEST = "Json/Test";
 
     // 오브젝트.
@@ -22,4 +21,11 @@ public static class Consts
 
     // 팝업 경로
     public static string kPATH_RESOURCE_DOWNLOAD_POPUP = "Prefabs/Popup/ResourceDownloadPopup";
+
+    // 어드레서블 키.
+    public static string kAD_KEY_TEST = "test";
+
+    // 씬 이름.
+    public static string kSCENE_LOBBY = "Lobby";
+    public static string kSCENE_TEST_SCENE = "TestScene";
 }
