@@ -23,7 +23,10 @@ public class ResourceDownloadPopup : BasePopup
     public UniTaskCompletionSource<bool> Result = new();
 
     void Awake()
-    {         
+    {
+        // 백버튼 막기.
+        _isBackButton = false;
+
         // 데이터 바인딩.
         _size = ResourceManager.Instance.Size.ToBindableReactiveProperty();
 

@@ -19,6 +19,15 @@ public abstract class BasePopup : MonoBehaviour
     /// </summary>
     protected void Close()
     {
-        PopupManager.Instance.Close();
+        if (_isBackButton == true)
+        {
+            // 백버튼 적용시에는 팝업매니저에서 닫기.
+            PopupManager.Instance.Close();
+        }
+        else
+        {
+            // 백버튼 미 적용시에는 그냥 비활성화.
+            gameObject.SetActive(false);
+        }
     }
 }

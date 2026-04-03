@@ -83,6 +83,7 @@ public class ResourceManager : BaseObjectSingleton<ResourceManager>
         }
         else
         {
+            // 번들 다운로드 받아야 되는 상태.
             var popup = PopupManager.Instance.Show<ResourceDownloadPopup>();
 
             // 팝업 선택 결과 기다림.
@@ -96,6 +97,7 @@ public class ResourceManager : BaseObjectSingleton<ResourceManager>
             else
             {
                 // 취소 버튼 누름.
+                Application.Quit();
             }
         }
     }
