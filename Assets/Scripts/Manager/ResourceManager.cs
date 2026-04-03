@@ -8,6 +8,7 @@ public class ResourceManager : BaseObjectSingleton<ResourceManager>
 {
     // 퍼센트.
     private ReactiveProperty<float> _percent = new();
+    private ReactiveProperty<string> _percentString = new();
 
     // 다운로드 받을 용량.
     private ReactiveProperty<string> _size = new();
@@ -18,6 +19,12 @@ public class ResourceManager : BaseObjectSingleton<ResourceManager>
     public ReactiveProperty<float> Percent
     {
         get { return _percent; }
+        private set { }
+    }
+
+    public ReactiveProperty<string> PercentString
+    {
+        get { return _percentString; }
         private set { }
     }
 
@@ -54,12 +61,14 @@ public class ResourceManager : BaseObjectSingleton<ResourceManager>
     /// 어드레서블 리소스 다운로드 검사.
     /// </summary>    
     public async UniTask CheckDownloadAsync()
-    {        
+    {
         // 다운로드 시작.
+        _percentString.Value = "0%";
+
         Debug.Log("리소스 다운로드 시작...");
 
         // 번들 용량 가져옴.
-        var (isDownload, size) = await GetDownloadSizeAsync(Consts.kAD_KEY_TEST);
+        var (isDownload, size) = await GetDownloadSizeAsync(Consts.kAD_KEY_DOWNLOAD);
 
         Debug.Log($"번들 다운로드 사이즈 : {FormatBytes(size)}");
 
@@ -70,27 +79,24 @@ public class ResourceManager : BaseObjectSingleton<ResourceManager>
         {
             // 번들이 이미 다운로드 된 상태.
             _percent.Value = 1;
+            _percentString.Value = "100%";
+        }
+        else
+        {
             var popup = PopupManager.Instance.Show<ResourceDownloadPopup>();
 
             // 팝업 선택 결과 기다림.
-            var isSelect = await popup.Result.Task;
+            var isSelect = await popup.Result.Task;            
 
             if (isSelect == true)
             {
                 // 확인 버튼 누름.
+                await DownloadAsync();
             }
             else
             {
                 // 취소 버튼 누름.
             }
-        }
-        else
-        {
-            // 번들 다운로드 팝업.
-            var popup = PopupManager.Instance.Show<ResourceDownloadPopup>();
-
-            // 팝업 선택 결과 기다림.
-            var isSelect = await popup.Result.Task;
         }
     }
 
@@ -98,24 +104,31 @@ public class ResourceManager : BaseObjectSingleton<ResourceManager>
     private async UniTask DownloadAsync()
     {
         // 번들 다운로드하거나, 새로 받아야 하는 상태.
-        var handle = Addressables.DownloadDependenciesAsync(Consts.kAD_KEY_TEST);
+        var handle = Addressables.DownloadDependenciesAsync(Consts.kAD_KEY_DOWNLOAD);
 
         while (!handle.IsDone)
         {
             await UniTask.Yield();
 
-            _percent.Value = handle.GetDownloadStatus().Percent;
+            var percent = handle.GetDownloadStatus().Percent;
+            
+            _percent.Value = percent;            
+            _percentString.Value = $"{Mathf.RoundToInt(percent * 100f)}%";
         }
 
         if (handle.Status == AsyncOperationStatus.Succeeded)
         {
             Debug.Log("리소스 다운로드 완료!");
+
             _percent.Value = handle.GetDownloadStatus().Percent;
+            _percentString.Value = "100%";
         }
         else
         {
             Debug.LogError("리소스 다운로드 실패...");
+
             _percent.Value = 0;
+            _percentString.Value = "0%";
         }
 
         Addressables.Release(handle);

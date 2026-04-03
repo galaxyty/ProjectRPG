@@ -23,7 +23,9 @@ public static class Consts
     public static string kPATH_RESOURCE_DOWNLOAD_POPUP = "Prefabs/Popup/ResourceDownloadPopup";
 
     // 어드레서블 키.
-    public static string kAD_KEY_TEST = "test";
+    public static string kAD_KEY_DOWNLOAD = "Download";
+    public static string kAD_KEY_PREFAB = "Prefab";
+    public static string kAD_KEY_SOUND = "Sound";
 
     // 씬 이름.
     public static string kSCENE_LOBBY = "Lobby";
