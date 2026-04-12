@@ -1,14 +1,11 @@
 using Cysharp.Threading.Tasks;
 using System;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 
 public class BootSceneInitializer : BaseSceneInitializer
 {
     public override async UniTask InitializationAsync()
     {
-        await Addressables.InitializeAsync();
-
         // 60 «¡∑π¿”.
         Application.targetFrameRate = 60;
 
