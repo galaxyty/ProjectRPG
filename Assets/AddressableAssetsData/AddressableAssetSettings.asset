@@ -61,8 +61,12 @@ MonoBehaviour:
   m_overridePlayerVersion: '[UnityEditor.PlayerSettings.bundleVersion]'
   m_GroupAssets:
   - {fileID: 11400000, guid: 3d7dd6d2560b3014cb5436ea23df685e, type: 2}
+  - {fileID: 11400000, guid: 7e497344cf2610b43b8c0c7621d9761b, type: 2}
   - {fileID: 11400000, guid: 2644039636a850f4e906e56d029c6b60, type: 2}
+  - {fileID: 11400000, guid: 4c265261cb6dc084eaf2d76fe363abbc, type: 2}
+  - {fileID: 11400000, guid: 92b6ee30e0df6bc4aac65dc9c6760079, type: 2}
   - {fileID: 11400000, guid: eb189d1349a4da746ae3adb6425cf717, type: 2}
+  - {fileID: 11400000, guid: 3469d122ca6b7d14580bab753bbe7fbd, type: 2}
   m_BuildSettings:
     m_LogResourceManagerExceptions: 1
     m_BundleBuildPath: Temp/com.unity.addressables/AssetBundles
@@ -149,6 +153,10 @@ MonoBehaviour:
     - Sound
     - Prefab
     - Sound
+    - Texture
+    - Animator
+    - Clip
+    - Json
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: 39318d4462e6d5a4cb06d54f8f994def, type: 2}

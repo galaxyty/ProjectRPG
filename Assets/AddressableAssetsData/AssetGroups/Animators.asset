@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Animators
+  m_EditorClassIdentifier: 
+  m_GroupName: Animators
+  m_GUID: ccd3fce70e1792c47af389d53e25feab
+  m_SerializeEntries:
+  - m_GUID: d77da03d2f6d0254cb0a64e5dedb032a
+    m_Address: Animation/Animator/MonsterAnimator
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Animator
+    - Download
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 8dd8987b2f5f3e84aae36e7247f0df91, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 3804a2c5aaf0d364dbb501b1213dbccb, type: 2}
+    - {fileID: 11400000, guid: 1b2b08a72649a02459d22c15923bbdbb, type: 2}

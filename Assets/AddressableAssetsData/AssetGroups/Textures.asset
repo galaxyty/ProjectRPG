@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Textures
+  m_EditorClassIdentifier: 
+  m_GroupName: Textures
+  m_GUID: 9261d44147775b4458894a28587b0b61
+  m_SerializeEntries:
+  - m_GUID: 28393dd55e49f0e47971170728473128
+    m_Address: Texture/Monster
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Download
+    - Texture
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cc82ae6cf9ba12648a0b2718aa7ad042
+    m_Address: Texture/BaseGround
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Download
+    - Texture
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 8dd8987b2f5f3e84aae36e7247f0df91, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: b3f14fef5368d064dba4e8dd1a26dcf9, type: 2}
+    - {fileID: 11400000, guid: d642b33dafe295c49bdebcb07ca36449, type: 2}

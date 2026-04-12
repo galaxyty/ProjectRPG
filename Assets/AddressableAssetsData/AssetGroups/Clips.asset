@@ -10,42 +10,49 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: Prefabs
+  m_Name: Clips
   m_EditorClassIdentifier: 
-  m_GroupName: Prefabs
-  m_GUID: 556fc4e85c9036c43ab22c731274d8f6
+  m_GroupName: Clips
+  m_GUID: 7dd7d4feab93db746b7d483cde8053f7
   m_SerializeEntries:
-  - m_GUID: 0597470c57e90fe4f9eee61e38171f59
-    m_Address: Prefabs/Monster/MonsterThief
+  - m_GUID: 90a09faef9a466844916670ee32da7c9
+    m_Address: Animation/Clip/Monster/MonsterMove
     m_ReadOnly: 0
     m_SerializedLabels:
+    - Clip
     - Download
-    - Prefab
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 57136999f16f5e941af9b7797257dfe5
-    m_Address: Prefabs/LoadingSceneView
+  - m_GUID: a36b8cf996ef2aa499c3a20a03968d09
+    m_Address: Animation/Clip/Monster/MonsterAttackSecond
     m_ReadOnly: 0
     m_SerializedLabels:
+    - Clip
     - Download
-    - Prefab
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 98705f253d7e26a4fbe0ae1281c8657a
-    m_Address: Prefabs/PlayerStatView
+  - m_GUID: df4bfe6e3b74920429bbc06ec10363f6
+    m_Address: Animation/Clip/Monster/MonsterDie
     m_ReadOnly: 0
     m_SerializedLabels:
+    - Clip
     - Download
-    - Prefab
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: a151d84ad0e04f244a4a9016cb657f43
-    m_Address: Prefabs/MainMenuView
+  - m_GUID: e30e1221e3206634b9377e0728b0af16
+    m_Address: Animation/Clip/Monster/MonsterIdle
     m_ReadOnly: 0
     m_SerializedLabels:
+    - Clip
     - Download
-    - Prefab
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e48ba5266bb49d44eb4326eb62540bc4
+    m_Address: Animation/Clip/Monster/MonsterAttackFirst
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Clip
+    - Download
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 8dd8987b2f5f3e84aae36e7247f0df91, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: e5717c7344559394e8c4d6d8b0f5a0a0, type: 2}
-    - {fileID: 11400000, guid: 0cb6d351cf97ae64a8ba848efcb96504, type: 2}
+    - {fileID: 11400000, guid: 5d5c7f84efbef3746a43328b266e640d, type: 2}
+    - {fileID: 11400000, guid: 65bff58d545f77c439d41979e8838c97, type: 2}
