@@ -38,7 +38,7 @@ public class PlayerController : MonoBehaviour
     private PlayerAttackState _attackState;
 
     // 타겟 공격 시작 범위.
-    private const float _kATTACK_START_RANGE = 0.4f;
+    private const float _kATTACK_START_RANGE = 0.25f;
 
     // 일반 공격 범위.
     private const float _kATTACK_RANGE = 0.2f;
@@ -105,14 +105,16 @@ public class PlayerController : MonoBehaviour
         _state
             .Subscribe(SetState)
             .AddTo(this);
-    }
 
-    void Update()
-    {
-        ApplyState();
+        Observable.EveryUpdate()
+            .Subscribe(_ =>
+            {
+                ApplyState();
 
-        // 레이어 Order.
-        _spriteRenderer.sortingOrder = -(int)(transform.position.y * 100);
+                // 레이어 Order
+                _spriteRenderer.sortingOrder = -(int)(transform.position.y * 100);
+            })
+            .AddTo(this);
     }
 
     // 상태머신 적용.
