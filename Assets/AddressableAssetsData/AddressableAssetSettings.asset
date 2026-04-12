@@ -119,7 +119,7 @@ MonoBehaviour:
       m_ProfileName: Android
       m_Values:
       - m_Id: 5a18515507b04164a9e2ebe53d732a97
-        m_Value: StreamingAssets/Android
+        m_Value: 'http://localhost:8080/[BuildTarget]'
       - m_Id: 6b17c06ae92267c418862c9ca7ea1434
         m_Value: '{UnityEngine.AddressableAssets.Addressables.RuntimePath}/[BuildTarget]'
       - m_Id: c3da52dcbd049a64683426bff935daa2
@@ -169,4 +169,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c3c24ab094e51c142af91a8a50ba98a3, type: 2}
   - {fileID: 11400000, guid: d51882c70c67bcd439c603e12e315a93, type: 2}
   - {fileID: 11400000, guid: 79b4ac323c63ebb42b2bf79e37452b93, type: 2}
-  m_ActiveProfileId: cacc520fa1c63a14ba2f8b22e7d90fc9
+  m_ActiveProfileId: 4a33b47821472634ebf30590c967a825
