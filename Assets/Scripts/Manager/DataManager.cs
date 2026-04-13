@@ -60,13 +60,13 @@ public class DataManager : BaseObjectSingleton<DataManager>
     // 스탯 저장.
     private void SaveStat()
     {
-        _saveData.HP = StatData.HP.Value;
+        _saveData.StatSaveData.HP = StatData.HP.Value;
     }
 
     // 재화 저장.
     private void SaveCurrency()
     {
-        _saveData.Gold = CurrencyData.Gold.Value;
+        _saveData.CurrencySaveData.GOLD = CurrencyData.Gold.Value;
     }
 
     #endregion
@@ -76,13 +76,17 @@ public class DataManager : BaseObjectSingleton<DataManager>
     // 스탯 로드.
     private void LoadStat(SaveData data)
     {
-        StatData.HP.Value = data.HP;
+        StatData.HP.Value = data.StatSaveData.HP;
+
+        Debug.Log($"데이터 로드 된 체력 : {StatData.HP}");
     }
 
     // 재화 로드.
     private void LoadCurrency(SaveData data)
     {
-        CurrencyData.Gold.Value = data.Gold;
+        CurrencyData.Gold.Value = data.CurrencySaveData.GOLD;
+
+        Debug.Log($"데이터 로드 된 골드 : {CurrencyData.Gold}");
     }
 
     #endregion

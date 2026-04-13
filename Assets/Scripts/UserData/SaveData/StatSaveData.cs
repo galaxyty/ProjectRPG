@@ -1,13 +1,8 @@
 using System;
 
 [Serializable]
-public class SaveData
+public class StatSaveData
 {
-    /// <summary>
-    /// °ñµå
-    /// </summary>
-    public double Gold;
-
     /// <summary>
     /// Ã¼·Â
     /// </summary>
