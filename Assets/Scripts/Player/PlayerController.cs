@@ -115,6 +115,8 @@ public class PlayerController : MonoBehaviour
                 _spriteRenderer.sortingOrder = -(int)(transform.position.y * 100);
             })
             .AddTo(this);
+
+        DataManager.Instance.Load();
     }
 
     // 상태머신 적용.
