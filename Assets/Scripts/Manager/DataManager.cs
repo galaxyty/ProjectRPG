@@ -21,6 +21,7 @@ public class DataManager : BaseObjectSingleton<DataManager>
     /// </summary>
     public void Save()
     {
+        // 함수를 추가하여 데이터 저장을 구현할 것.
         SaveStat();         // 스탯 저장.
         SaveCurrency();     // 재화 저장.
 
@@ -47,6 +48,7 @@ public class DataManager : BaseObjectSingleton<DataManager>
         var json = PlayerPrefs.GetString(kSAVE_KEY);
         var data = JsonUtility.FromJson<SaveData>(json);
 
+        // 함수를 추가하여 데이터 로드를 구현할 것.
         LoadStat(data);         // 스탯 로드.
         LoadCurrency(data);     // 재화 로드.
 
