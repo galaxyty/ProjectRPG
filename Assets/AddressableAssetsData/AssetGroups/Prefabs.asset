@@ -36,13 +36,6 @@ MonoBehaviour:
     - Download
     - Prefab
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 98705f253d7e26a4fbe0ae1281c8657a
-    m_Address: Prefabs/PlayerStatView
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Download
-    - Prefab
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a151d84ad0e04f244a4a9016cb657f43
     m_Address: Prefabs/MainMenuView
     m_ReadOnly: 0
