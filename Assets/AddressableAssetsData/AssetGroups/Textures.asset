@@ -16,14 +16,28 @@ MonoBehaviour:
   m_GUID: 9261d44147775b4458894a28587b0b61
   m_SerializeEntries:
   - m_GUID: 28393dd55e49f0e47971170728473128
-    m_Address: Texture/Monster
+    m_Address: Textures/Monster/Monster
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Download
+    - Texture
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4f8e653bf1c0b054680c13a05741c202
+    m_Address: Textures/UI/Gauge/Hp_line
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Download
+    - Texture
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9d5f6625b0b035841a1153f7e5466a94
+    m_Address: Textures/UI/Gauge/Hp_frame
     m_ReadOnly: 0
     m_SerializedLabels:
     - Download
     - Texture
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: cc82ae6cf9ba12648a0b2718aa7ad042
-    m_Address: Texture/BaseGround
+    m_Address: Textures/Map/Ground/BaseGround
     m_ReadOnly: 0
     m_SerializedLabels:
     - Download

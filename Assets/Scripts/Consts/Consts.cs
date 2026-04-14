@@ -23,7 +23,7 @@ public static class Consts
     public static string kPATH_RESOURCE_DOWNLOAD_POPUP = "Prefabs/Popup/ResourceDownloadPopup";
 
     // 텍스쳐 경로.
-    public static string kPATH_TEXTURE_MONSTER = "Texture/Monster";
+    public static string kPATH_TEXTURE_MONSTER = "Textures/Monster/Monster";
 
     // 어드레서블 키.
     public static string kAD_KEY_DOWNLOAD = "Download";
