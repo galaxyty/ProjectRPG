@@ -29,6 +29,13 @@ MonoBehaviour:
     - Download
     - Json
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: eb6d5dbf17b98014e8d21db934910208
+    m_Address: Json/STAT
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Download
+    - Json
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 8dd8987b2f5f3e84aae36e7247f0df91, type: 2}
   m_SchemaSet:

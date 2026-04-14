@@ -11,6 +11,11 @@ public class PlayerHPModel : BaseModel
         HP = statData.HP;
     }
 
+    public PlayerHPModel(StatTableData data)
+    {
+
+    }
+
     public override UniTask InitializationAsync()
     {
         return UniTask.CompletedTask;
