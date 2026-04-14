@@ -10,6 +10,9 @@ public class LobbyInitializer : BaseSceneInitializer
     {
         Debug.Log("로비 씬 초기화...");
 
+        // 데이터 로드.
+        DataManager.Instance.Load();
+
         // 메인 메뉴 팩토리.
         MainMenuFactory mainMenuFactory = new(_uiTransform);
 

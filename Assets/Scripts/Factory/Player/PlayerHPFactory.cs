@@ -20,7 +20,7 @@ public class PlayerHPFactory : IFactory
 
         var view = prefab.GetComponent<PlayerHPView>();
 
-        PlayerHPModel model = new();
+        PlayerHPModel model = new(DataManager.Instance.StatData);
 
         await model.InitializationAsync();
 
