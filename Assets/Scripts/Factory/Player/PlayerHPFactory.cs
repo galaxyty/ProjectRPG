@@ -24,7 +24,7 @@ public class PlayerHPFactory : IFactory
 
         await model.InitializationAsync();
 
-        PlayerHPPresenter presenter = new();
+        PlayerHPPresenter presenter = new(model);
 
         presenter.SetModel(model);
         presenter.SetView(view);

@@ -8,7 +8,7 @@ public class PlayerHPModel : BaseModel
 
     public PlayerHPModel(StatData statData)
     {
-        HP.Value = statData.HP.Value;
+        HP = statData.HP;
     }
 
     public override UniTask InitializationAsync()

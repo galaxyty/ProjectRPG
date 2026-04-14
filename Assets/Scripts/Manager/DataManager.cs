@@ -28,6 +28,7 @@ public class DataManager : BaseObjectSingleton<DataManager>
 
         // C# -> Json으로 직렬화 시켜 로컬 저장.
         var json = JsonConvert.SerializeObject(_saveData);
+
         PlayerPrefs.SetString(kSAVE_KEY, json);
         PlayerPrefs.Save();
 
