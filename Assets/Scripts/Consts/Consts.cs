@@ -12,6 +12,7 @@ public static class Consts
 
     // 오브젝트.
     public static string kPATH_MONSTER_THIEF = "Prefabs/Monster/MonsterThief";
+    public static string kPATH_PLAYER_HP_VIEW = "Prefabs/UI/Player/PlayerHPView";
 
     // 애니메이터 키.
     public static string kANIMATOR_KEY_STATE = "State";
