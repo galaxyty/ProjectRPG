@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using UnityEngine;
 
 // TODO :: 재로그인 시 데이터들 이벤트 구독한거 취소 안해준게 문제 될 수 있으니
@@ -26,7 +27,7 @@ public class DataManager : BaseObjectSingleton<DataManager>
         SaveCurrency();     // 재화 저장.
 
         // C# -> Json으로 직렬화 시켜 로컬 저장.
-        var json = JsonUtility.ToJson(_saveData);
+        var json = JsonConvert.SerializeObject(_saveData);
         PlayerPrefs.SetString(kSAVE_KEY, json);
         PlayerPrefs.Save();
 
@@ -46,7 +47,7 @@ public class DataManager : BaseObjectSingleton<DataManager>
 
         // Json -> C#으로 역직렬화 시키고 C# 코드로 쓸 수 있게 함.
         var json = PlayerPrefs.GetString(kSAVE_KEY);
-        var data = JsonUtility.FromJson<SaveData>(json);
+        var data = JsonConvert.DeserializeObject<SaveData>(json);
 
         // 함수를 추가하여 데이터 로드를 구현할 것.
         LoadStat(data);         // 스탯 로드.
