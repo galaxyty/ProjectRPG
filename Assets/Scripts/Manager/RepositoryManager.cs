@@ -33,7 +33,7 @@ public class RepositoryManager : BaseObjectSingleton<RepositoryManager>
     {
         PlayerHPModel model = new(DataManager.Instance.StatData);
 
-        _playerHPModelRepository.Add(0, model);
+        _playerHPModelRepository.Add(model);
     }
 
     // Stat 모델 리포지토리 생성.

@@ -1,19 +1,17 @@
-using System.Collections.Generic;
-
 public class PlayerHPModelRepository
 {
-    private Dictionary<int, PlayerHPModel> _models = new();
+    private PlayerHPModel _model;
 
     /// <summary>
     /// 리포지토리 모델 추가.
     /// </summary>
-    public void Add(int index, PlayerHPModel model)
+    public void Add(PlayerHPModel model)
     {
-        _models.Add(index, model);
+        _model = model;
     }
 
     /// <summary>
     /// 해당 Index 모델 반환.
     /// </summary>
-    public PlayerHPModel Get(int index) => _models[index];
+    public PlayerHPModel Get(int index) => _model;
 }
