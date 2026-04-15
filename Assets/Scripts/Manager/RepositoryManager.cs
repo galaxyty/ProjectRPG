@@ -16,11 +16,11 @@ public class RepositoryManager : BaseObjectSingleton<RepositoryManager>
     /// </summary>
     public void Initialization()
     {
-        CreatePlayerStatRepository();
+        CreatePlayerStatModel();
     }
 
     // Player Stat 모델 생성.
-    private void CreatePlayerStatRepository()
+    private void CreatePlayerStatModel()
     {
         var data = TableManager.Instance.StatTableDatas.Find(data => data.LEVEL == DataManager.Instance.StatData.Level.Value);
 
@@ -33,6 +33,7 @@ public class RepositoryManager : BaseObjectSingleton<RepositoryManager>
 
         PlayerStatModel model = new(DataManager.Instance.StatData, data);
 
+        // 리포지토리 추가.
         _playerStatModelRepository.Add(model);
     }
 }
