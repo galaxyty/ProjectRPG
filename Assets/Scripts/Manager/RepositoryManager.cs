@@ -2,9 +2,16 @@ using UnityEngine;
 
 public class RepositoryManager : BaseObjectSingleton<RepositoryManager>
 {
+    private PlayerStatModelRepository _playerStatModelRepository = new();
     private PlayerHPModelRepository _playerHPModelRepository = new();
     private StatModelRepository _statModelRepository = new();
 
+    // 프로퍼티
+    public PlayerStatModelRepository PlayerStatModelRepository
+    {
+        get { return _playerStatModelRepository; }
+        private set { }
+    }
     public PlayerHPModelRepository PlayerHPModelRepository
     {
         get { return _playerHPModelRepository; }
@@ -21,8 +28,26 @@ public class RepositoryManager : BaseObjectSingleton<RepositoryManager>
     /// </summary>
     public void Initialization()
     {
+        CreatePlayerStatRepository();
         CreatePlayerHPModelRepository();
-        CreateStatModelRepository();
+        //CreateStatModelRepository();
+    }
+
+    // Player Stat 모델 생성.
+    private void CreatePlayerStatRepository()
+    {
+        var data = TableManager.Instance.StatTableDatas.Find(data => data.LEVEL == DataManager.Instance.StatData.Level.Value);
+
+        // null 체크.
+        if (data == null)
+        {
+            Debug.LogError($"Stat Table 데이터를 조회할 수 없습니다");
+            return;
+        }
+
+        PlayerStatModel model = new(DataManager.Instance.StatData, data);
+
+        _playerStatModelRepository.Add(model);
     }
 
     // Player HP 모델 리포지토리 생성.
