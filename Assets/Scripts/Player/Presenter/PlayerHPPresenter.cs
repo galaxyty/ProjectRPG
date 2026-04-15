@@ -1,5 +1,4 @@
 using R3;
-using UnityEngine;
 
 public class PlayerHPPresenter : BasePresenter<PlayerHPView, PlayerHPModel>
 {
@@ -7,7 +6,7 @@ public class PlayerHPPresenter : BasePresenter<PlayerHPView, PlayerHPModel>
 
     public PlayerHPPresenter(PlayerHPModel model)
     {
-        DisplayHP = model.HP.ToBindableReactiveProperty();
+        DisplayHP = model.CurrentHP.ToBindableReactiveProperty();
     }
 
     public override void Initialization()
