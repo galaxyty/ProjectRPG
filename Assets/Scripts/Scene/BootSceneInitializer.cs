@@ -25,9 +25,6 @@ public class BootSceneInitializer : BaseSceneInitializer
             return;
         }
 
-        // 테이블 매니저 초기화.
-        await TableManager.Instance.InitializationAsync();
-
         // 각 매니저들 동시에 초기화.
         var audioTask = AudioManager.Instance.InitializationAsync();
         var sceneTask = SceneLoadManager.Instance.InitializationAsync();

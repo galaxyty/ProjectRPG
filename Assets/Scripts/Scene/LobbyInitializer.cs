@@ -13,13 +13,12 @@ public class LobbyInitializer : BaseSceneInitializer
         // 데이터 로드.
         DataManager.Instance.Load();
 
+        // 리포지토리 초기화.
+        await RepositoryManager.Instance.InitializationAsync();
+
         // 메인 메뉴 팩토리.
         MainMenuFactory mainMenuFactory = new(_uiTransform);
 
-        // 플레이어 스탯 팩토리.
-        //PlayerStatFactory playerStatFactory = new();
-
         await mainMenuFactory.CreateAsync();
-        //await playerStatFactory.CreateAsync();
     }
 }
