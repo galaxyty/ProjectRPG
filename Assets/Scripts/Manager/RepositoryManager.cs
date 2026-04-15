@@ -23,6 +23,7 @@ public class RepositoryManager : BaseObjectSingleton<RepositoryManager>
         await CreateStatModelRepository();
     }
 
+    // Player HP 모델 리포지토리 생성.
     private void CreatePlayerHPModelRepository()
     {
         PlayerHPModel model = new(DataManager.Instance.StatData);
@@ -30,6 +31,7 @@ public class RepositoryManager : BaseObjectSingleton<RepositoryManager>
         _playerHPModelRepository.Add(0, model);
     }
 
+    // Stat 모델 리포지토리 생성.
     private async UniTask CreateStatModelRepository()
     {
         var json = await ResourceManager.Instance.LoadAsync<TextAsset>(Consts.kPATH_JSON_STAT);
