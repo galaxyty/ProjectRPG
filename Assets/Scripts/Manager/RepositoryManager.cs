@@ -1,3 +1,4 @@
+using UnityEngine;
 
 public class RepositoryManager : BaseObjectSingleton<RepositoryManager>
 {
@@ -27,7 +28,16 @@ public class RepositoryManager : BaseObjectSingleton<RepositoryManager>
     // Player HP 모델 리포지토리 생성.
     private void CreatePlayerHPModelRepository()
     {
-        PlayerHPModel model = new(DataManager.Instance.StatData);
+        var data = TableManager.Instance.StatTableDatas.Find(data => data.LEVEL == DataManager.Instance.StatData.Level.Value);
+
+        // null 체크.
+        if (data == null)
+        {
+            Debug.LogError($"Stat Table 데이터를 조회할 수 없습니다");
+            return;
+        }
+
+        PlayerHPModel model = new(DataManager.Instance.StatData, data);
 
         _playerHPModelRepository.Add(model);
     }

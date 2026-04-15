@@ -14,9 +14,10 @@ public class PlayerHPModel : BaseModel
 
     public ReadOnlyReactiveProperty<int> MaxHP => _maxHP;
 
-    public PlayerHPModel(StatData statData)
+    public PlayerHPModel(StatData statData, StatTableData tableData)
     {
         _currentHP = statData.HP;
+        _maxHP.Value = tableData.HP;
     }
 
     public override UniTask InitializationAsync()

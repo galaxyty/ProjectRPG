@@ -4,6 +4,11 @@ using UnityEngine;
 public class StatData
 {
     /// <summary>
+    /// 레벨.
+    /// </summary>
+    public ReactiveProperty<int> Level = new(1);
+
+    /// <summary>
     /// 체력.
     /// </summary>
     public ReactiveProperty<int> HP = new();

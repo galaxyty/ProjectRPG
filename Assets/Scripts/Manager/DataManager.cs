@@ -62,6 +62,7 @@ public class DataManager : BaseObjectSingleton<DataManager>
     // 스탯 저장.
     private void SaveStat()
     {
+        _saveData.StatSaveData.LEVEL = StatData.Level.Value;
         _saveData.StatSaveData.HP = StatData.HP.Value;
     }
 
@@ -78,7 +79,8 @@ public class DataManager : BaseObjectSingleton<DataManager>
     // 스탯 로드.
     private void LoadStat(SaveData data)
     {
-        StatData.HP.Value = data.StatSaveData.HP;
+        StatData.Level.Value = data.StatSaveData.LEVEL;
+        StatData.HP.Value = data.StatSaveData.HP;        
 
         Debug.Log($"데이터 로드 된 체력 : {StatData.HP}");
     }
