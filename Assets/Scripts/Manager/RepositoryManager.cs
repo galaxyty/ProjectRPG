@@ -3,23 +3,11 @@ using UnityEngine;
 public class RepositoryManager : BaseObjectSingleton<RepositoryManager>
 {
     private PlayerStatModelRepository _playerStatModelRepository = new();
-    private PlayerHPModelRepository _playerHPModelRepository = new();
-    private StatModelRepository _statModelRepository = new();
 
     // 프로퍼티
     public PlayerStatModelRepository PlayerStatModelRepository
     {
         get { return _playerStatModelRepository; }
-        private set { }
-    }
-    public PlayerHPModelRepository PlayerHPModelRepository
-    {
-        get { return _playerHPModelRepository; }
-        private set { }
-    }
-    public StatModelRepository StatModelRepository
-    {
-        get { return _statModelRepository; }
         private set { }
     }
 
@@ -29,8 +17,6 @@ public class RepositoryManager : BaseObjectSingleton<RepositoryManager>
     public void Initialization()
     {
         CreatePlayerStatRepository();
-        CreatePlayerHPModelRepository();
-        //CreateStatModelRepository();
     }
 
     // Player Stat 모델 생성.
@@ -48,35 +34,5 @@ public class RepositoryManager : BaseObjectSingleton<RepositoryManager>
         PlayerStatModel model = new(DataManager.Instance.StatData, data);
 
         _playerStatModelRepository.Add(model);
-    }
-
-    // Player HP 모델 리포지토리 생성.
-    private void CreatePlayerHPModelRepository()
-    {
-        var data = TableManager.Instance.StatTableDatas.Find(data => data.LEVEL == DataManager.Instance.StatData.Level.Value);
-
-        // null 체크.
-        if (data == null)
-        {
-            Debug.LogError($"Stat Table 데이터를 조회할 수 없습니다");
-            return;
-        }
-
-        PlayerHPModel model = new(DataManager.Instance.StatData, data);
-
-        _playerHPModelRepository.Add(model);
-    }
-
-    // Stat 모델 리포지토리 생성.
-    private void CreateStatModelRepository()
-    {
-        var list = TableManager.Instance.StatTableDatas;
-
-        foreach (var data in list)
-        {
-            StatModel model = new(data);
-
-            _statModelRepository.Add(data.INDEX, model);
-        }
     }
 }
