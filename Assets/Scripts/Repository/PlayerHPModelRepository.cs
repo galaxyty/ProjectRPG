@@ -13,5 +13,5 @@ public class PlayerHPModelRepository
     /// <summary>
     /// 해당 Index 모델 반환.
     /// </summary>
-    public PlayerHPModel Get(int index) => _model;
+    public PlayerHPModel Get() => _model;
 }
