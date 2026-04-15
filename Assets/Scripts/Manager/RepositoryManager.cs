@@ -13,6 +13,11 @@ public class RepositoryManager : BaseObjectSingleton<RepositoryManager>
         get { return _playerHPModelRepository; }
         private set { }
     }
+    public StatModelRepository StatModelRepository
+    {
+        get { return _statModelRepository; }
+        private set { }
+    }
 
     /// <summary>
     /// 리포지토리 매니저 초기화.
