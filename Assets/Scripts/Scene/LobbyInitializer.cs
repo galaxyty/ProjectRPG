@@ -14,7 +14,7 @@ public class LobbyInitializer : BaseSceneInitializer
         DataManager.Instance.Load();
 
         // 리포지토리 초기화.
-        await RepositoryManager.Instance.InitializationAsync();
+        RepositoryManager.Instance.Initialization();
 
         // 메인 메뉴 팩토리.
         MainMenuFactory mainMenuFactory = new(_uiTransform);

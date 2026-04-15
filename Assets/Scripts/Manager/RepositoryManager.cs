@@ -1,7 +1,3 @@
-using Cysharp.Threading.Tasks;
-using Newtonsoft.Json;
-using UnityEngine;
-using System.Collections.Generic;
 
 public class RepositoryManager : BaseObjectSingleton<RepositoryManager>
 {
@@ -22,10 +18,10 @@ public class RepositoryManager : BaseObjectSingleton<RepositoryManager>
     /// <summary>
     /// 리포지토리 매니저 초기화.
     /// </summary>
-    public async UniTask InitializationAsync()
+    public void Initialization()
     {
         CreatePlayerHPModelRepository();
-        await CreateStatModelRepository();
+        CreateStatModelRepository();
     }
 
     // Player HP 모델 리포지토리 생성.
@@ -37,10 +33,9 @@ public class RepositoryManager : BaseObjectSingleton<RepositoryManager>
     }
 
     // Stat 모델 리포지토리 생성.
-    private async UniTask CreateStatModelRepository()
+    private void CreateStatModelRepository()
     {
-        var json = await ResourceManager.Instance.LoadAsync<TextAsset>(Consts.kPATH_JSON_STAT);
-        var list = JsonConvert.DeserializeObject<List<StatTableData>>(json.text);
+        var list = TableManager.Instance.StatTableDatas;
 
         foreach (var data in list)
         {
