@@ -14,7 +14,7 @@ public class PlayerHPPresenter : BasePresenter<PlayerHPView, PlayerStatModel>
 
     public override void Initialization()
     {
-        // 이벤트 구독.
+        // 데이터 바인딩.
         _displayLevel
             .Skip(1)
             .Subscribe(LevelUP);

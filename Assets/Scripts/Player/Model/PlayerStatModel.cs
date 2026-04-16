@@ -22,7 +22,7 @@ public class PlayerStatModel : BaseModel
 
     public override UniTask InitializationAsync()
     {
-        // 이벤트 구독.
+        // 데이터 바인딩.
         CurrentLevel
             .Skip(1)
             .Subscribe(level =>
