@@ -22,7 +22,7 @@ public class RepositoryManager : BaseObjectSingleton<RepositoryManager>
     // Player Stat 모델 생성.
     private void CreatePlayerStatModel()
     {
-        var data = TableManager.Instance.StatTableDatas.Find(data => data.LEVEL == DataManager.Instance.StatData.Level.Value);
+        var data = TableManager.Instance.StatTableDatas.Find(data => data.LEVEL == DataManager.Instance.StatUserData.Level.Value);
 
         // null 체크.
         if (data == null)
@@ -31,7 +31,7 @@ public class RepositoryManager : BaseObjectSingleton<RepositoryManager>
             return;
         }
 
-        PlayerStatModel model = new(DataManager.Instance.StatData, data);
+        PlayerStatModel model = new(DataManager.Instance.StatUserData, data);
 
         // 리포지토리 추가.
         _playerStatModelRepository.Add(model);

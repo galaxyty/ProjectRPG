@@ -5,27 +5,31 @@ using UnityEngine;
 public class PlayerStatModel : BaseModel
 {
     // 레벨.
-    private ReactiveProperty<int> _currentLevel = new();
+    public ReactiveProperty<int> CurrentLevel = new();
 
     // 현재 체력.
-    private ReactiveProperty<int> _currentHP = new();
+    public ReactiveProperty<int> CurrentHP = new();
 
     // 최대 체력.
-    private ReactiveProperty<int> _maxHP = new();
+    public ReactiveProperty<int> MaxHP = new();
 
-    // 읽기 전용 변수들.
-    public ReadOnlyReactiveProperty<int> CurrentLevel => _currentLevel;
-    public ReadOnlyReactiveProperty<int> CurrentHP => _currentHP;
-    public ReadOnlyReactiveProperty<int> MaxHP => _maxHP;
-
-    public PlayerStatModel(StatData statData, StatTableData tableData)
+    public PlayerStatModel(StatUserData userData, StatTableData tableData)
     {
-        _currentHP = statData.HP;
-        _maxHP.Value = tableData.HP;
+        CurrentLevel = userData.Level;
+        CurrentHP = userData.HP;
+        MaxHP.Value = tableData.HP;
     }
 
     public override UniTask InitializationAsync()
     {
+        // 이벤트 구독.
+        CurrentLevel
+            .Skip(1)
+            .Subscribe(level =>
+            {
+                Debug.Log($"플레이어 레벨업 : {level}");
+            });
+
         return UniTask.CompletedTask;
     }
 }

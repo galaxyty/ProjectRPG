@@ -6,10 +6,10 @@ using UnityEngine;
 public class DataManager : BaseObjectSingleton<DataManager>
 {
     // 스탯 데이터.
-    public StatData StatData = new();
+    public StatUserData StatUserData = new();
 
     // 재화 데이터.
-    public CurrencyData CurrencyData = new();
+    public CurrencyUserData CurrencyUserData = new();
 
     // 세이브 데이터.
     private SaveData _saveData = new();
@@ -62,14 +62,14 @@ public class DataManager : BaseObjectSingleton<DataManager>
     // 스탯 저장.
     private void SaveStat()
     {
-        _saveData.StatSaveData.LEVEL = StatData.Level.Value;
-        _saveData.StatSaveData.HP = StatData.HP.Value;
+        _saveData.StatSaveData.LEVEL = StatUserData.Level.Value;
+        _saveData.StatSaveData.HP = StatUserData.HP.Value;
     }
 
     // 재화 저장.
     private void SaveCurrency()
     {
-        _saveData.CurrencySaveData.GOLD = CurrencyData.Gold.Value;
+        _saveData.CurrencySaveData.GOLD = CurrencyUserData.Gold.Value;
     }
 
     #endregion
@@ -79,18 +79,18 @@ public class DataManager : BaseObjectSingleton<DataManager>
     // 스탯 로드.
     private void LoadStat(SaveData data)
     {
-        StatData.Level.Value = data.StatSaveData.LEVEL;
-        StatData.HP.Value = data.StatSaveData.HP;        
+        StatUserData.Level.Value = data.StatSaveData.LEVEL;
+        StatUserData.HP.Value = data.StatSaveData.HP;        
 
-        Debug.Log($"데이터 로드 된 체력 : {StatData.HP}");
+        Debug.Log($"데이터 로드 된 체력 : {StatUserData.HP}");
     }
 
     // 재화 로드.
     private void LoadCurrency(SaveData data)
     {
-        CurrencyData.Gold.Value = data.CurrencySaveData.GOLD;
+        CurrencyUserData.Gold.Value = data.CurrencySaveData.GOLD;
 
-        Debug.Log($"데이터 로드 된 골드 : {CurrencyData.Gold}");
+        Debug.Log($"데이터 로드 된 골드 : {CurrencyUserData.Gold}");
     }
 
     #endregion

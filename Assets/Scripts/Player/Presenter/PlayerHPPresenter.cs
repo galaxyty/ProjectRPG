@@ -3,24 +3,49 @@ using UnityEngine;
 
 public class PlayerHPPresenter : BasePresenter<PlayerHPView, PlayerStatModel>
 {
-    public BindableReactiveProperty<int> DisplayHP = new();
+    private BindableReactiveProperty<int> _displayLevel = new();
+    private BindableReactiveProperty<int> _displayHP = new();
 
     public PlayerHPPresenter(PlayerStatModel model)
     {
-        DisplayHP = model.CurrentHP.ToBindableReactiveProperty();
+        _displayLevel = model.CurrentLevel.ToBindableReactiveProperty();
+        _displayHP = model.CurrentHP.ToBindableReactiveProperty();
     }
 
     public override void Initialization()
     {
         // 이벤트 구독.
-        DisplayHP
-            .Subscribe(hp =>
-            {
-                _view.SetHP((float)hp / _model.MaxHP.CurrentValue);
-            });
+        _displayLevel
+            .Skip(1)
+            .Subscribe(LevelUP);
+
+        _displayHP
+            .Subscribe(SetHP);
     }
 
     protected override void OnBindModel()
     {
+    }
+
+    // 레벨업.
+    private void LevelUP(int level)
+    {
+        var data = TableManager.Instance.StatTableDatas.Find(data => data.LEVEL == level);
+
+        if (data == null)
+        {
+            return;
+        }
+
+        _model.CurrentHP.Value = data.HP;
+        _model.MaxHP.Value = data.HP;
+
+        SetHP(_model.CurrentHP.CurrentValue);
+    }
+
+    // HP 갱신.
+    private void SetHP(int hp)
+    {
+        _view.SetHP((float)hp / _model.MaxHP.CurrentValue);
     }
 }
