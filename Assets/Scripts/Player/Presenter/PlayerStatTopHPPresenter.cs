@@ -1,12 +1,12 @@
 using R3;
 using UnityEngine;
 
-public class PlayerHPPresenter : BasePresenter<PlayerHPView, PlayerStatModel>
+public class PlayerStatTopHPPresenter : BasePresenter<PlayerStatTopHPView, PlayerStatModel>
 {
     private BindableReactiveProperty<int> _displayLevel = new();
     private BindableReactiveProperty<int> _displayHP = new();
 
-    public PlayerHPPresenter(PlayerStatModel model)
+    public PlayerStatTopHPPresenter(PlayerStatModel model)
     {
         _displayLevel = model.CurrentLevel.ToBindableReactiveProperty();
         _displayHP = model.CurrentHP.ToBindableReactiveProperty();

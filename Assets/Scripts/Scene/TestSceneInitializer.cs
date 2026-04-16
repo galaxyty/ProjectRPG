@@ -11,9 +11,12 @@ public class TestSceneInitializer : BaseSceneInitializer
         Debug.Log("TestSceneInitializer 초기화");
 
         // 플레이어 HP 팩토리.
-        PlayerHPFactory playerHPFactory = new(_uiTransform);
+        //PlayerHPFactory playerHPFactory = new(_uiTransform);
+        //await playerHPFactory.CreateAsync();
 
-        await playerHPFactory.CreateAsync();
+        // 플레이어 상단 팩토리.
+        PlayerStatTopFactory playerStatTopFactory = new(_uiTransform);
+        await playerStatTopFactory.CreateAsync();
 
         // 몬스터매니저 초기화.
         await MonsterManager.Instance.Initialization();

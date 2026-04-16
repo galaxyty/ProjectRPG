@@ -15,6 +15,13 @@ MonoBehaviour:
   m_GroupName: Textures
   m_GUID: 9261d44147775b4458894a28587b0b61
   m_SerializeEntries:
+  - m_GUID: 12eaceb7341922b4398ff20c8bbcff90
+    m_Address: Textures/UI/Bar/NameBar
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Download
+    - Texture
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 28393dd55e49f0e47971170728473128
     m_Address: Textures/Monster/Monster
     m_ReadOnly: 0
@@ -24,6 +31,13 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 4f8e653bf1c0b054680c13a05741c202
     m_Address: Textures/UI/Gauge/Hp_line
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Download
+    - Texture
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 76a827c0b7b700d4fa9e135b970a64b1
+    m_Address: Textures/UI/Frame/Default_Frame
     m_ReadOnly: 0
     m_SerializedLabels:
     - Download

@@ -2,7 +2,7 @@ using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerHPView : BaseView
+public class PlayerStatTopHPView : BaseView
 {
     [SerializeField]
     private Slider _hpSlider;

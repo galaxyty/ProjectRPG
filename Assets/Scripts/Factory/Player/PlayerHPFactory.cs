@@ -13,21 +13,21 @@ public class PlayerHPFactory : IFactory
 
     public async UniTask CreateAsync()
     {
-        Debug.Log("PlayerHPFactory 蒲配府 积己");
+        /*Debug.Log("PlayerHPFactory 蒲配府 积己");
 
         var uiHPLoad = await ResourceManager.Instance.LoadAsync<GameObject>(Consts.kPATH_PLAYER_HP_VIEW);
         var prefab = Object.Instantiate(uiHPLoad, _uiParent);
 
-        var view = prefab.GetComponent<PlayerHPView>();
+        var view = prefab.GetComponent<PlayerStatTopHPView>();
 
         var model = RepositoryManager.Instance.PlayerStatModelRepository.Get();
 
         await model.InitializationAsync();
 
-        PlayerHPPresenter presenter = new(model);
+        PlayerStatTopHPPresenter presenter = new(model);
 
         presenter.SetModel(model);
         presenter.SetView(view);
-        presenter.Initialization();
+        presenter.Initialization();*/
     }
 }
