@@ -20,7 +20,7 @@ public class PlayerStatTopFactory : IFactory
         var prefab = Object.Instantiate(uiTop, _uiParent);
 
         // 하위 뷰 가져오기.
-        /*var hpView = prefab.GetComponentInChildren<PlayerStatTopHPView>();
+        var hpView = prefab.GetComponentInChildren<PlayerStatTopHPView>();
         var expView = prefab.GetComponentInChildren<PlayerStatTopEXPView>();
         var iconView = prefab.GetComponentInChildren<PlayerStatTopIconView>();
         var levelView = prefab.GetComponentInChildren<PlayerStatTopLevelView>();
@@ -50,6 +50,6 @@ public class PlayerStatTopFactory : IFactory
 
         levelPresenter.SetModel(model);
         levelPresenter.SetView(levelView);
-        levelPresenter.Initialization();*/
+        levelPresenter.Initialization();
     }
 }
