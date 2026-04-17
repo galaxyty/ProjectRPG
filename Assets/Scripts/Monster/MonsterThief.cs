@@ -17,7 +17,7 @@ public class MonsterThief : BaseMonster
     public override void OnDie()
     {
         Debug.Log("도적 몬스터 사망");
-
+        
         MonsterManager.Instance.Die(this, Consts.kPATH_MONSTER_THIEF);
     }
 

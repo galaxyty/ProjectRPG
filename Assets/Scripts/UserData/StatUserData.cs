@@ -11,4 +11,9 @@ public class StatUserData
     /// 체력.
     /// </summary>
     public ReactiveProperty<int> HP = new();
+
+    /// <summary>
+    /// 경험치.
+    /// </summary>
+    public ReactiveProperty<int> EXP = new();
 }

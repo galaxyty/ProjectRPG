@@ -11,4 +11,12 @@ public class PlayerStatTopEXPView : BaseView
     {
         return UniTask.CompletedTask;
     }
+
+    /// <summary>
+    /// EXP¹Ù º¯°æ.
+    /// </summary>    
+    public void SetEXP(float percent)
+    {
+        _expSlider.value = percent;
+    }
 }

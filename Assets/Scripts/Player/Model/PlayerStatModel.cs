@@ -13,11 +13,20 @@ public class PlayerStatModel : BaseModel
     // 최대 체력.
     public ReactiveProperty<int> MaxHP = new();
 
+    // 현재 경험치.
+    public ReactiveProperty<int> CurrentEXP = new();
+
+    // 현재 레벨 기준 목표 도달 경험치.
+    public ReactiveProperty<int> MaxEXP = new();
+
     public PlayerStatModel(StatUserData userData, StatTableData tableData)
     {
         CurrentLevel = userData.Level;
         CurrentHP = userData.HP;
+        CurrentEXP = userData.EXP;
+
         MaxHP.Value = tableData.HP;
+        MaxEXP.Value = tableData.EXP;
     }
 
     public override UniTask InitializationAsync()

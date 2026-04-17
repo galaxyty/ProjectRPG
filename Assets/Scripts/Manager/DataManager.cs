@@ -64,6 +64,7 @@ public class DataManager : BaseObjectSingleton<DataManager>
     {
         _saveData.StatSaveData.LEVEL = StatUserData.Level.Value;
         _saveData.StatSaveData.HP = StatUserData.HP.Value;
+        _saveData.StatSaveData.EXP = StatUserData.EXP.Value;
     }
 
     // 재화 저장.
@@ -80,17 +81,14 @@ public class DataManager : BaseObjectSingleton<DataManager>
     private void LoadStat(SaveData data)
     {
         StatUserData.Level.Value = data.StatSaveData.LEVEL;
-        StatUserData.HP.Value = data.StatSaveData.HP;        
-
-        Debug.Log($"데이터 로드 된 체력 : {StatUserData.HP}");
+        StatUserData.HP.Value = data.StatSaveData.HP;
+        StatUserData.EXP.Value = data.StatSaveData.EXP;
     }
 
     // 재화 로드.
     private void LoadCurrency(SaveData data)
     {
         CurrencyUserData.Gold.Value = data.CurrencySaveData.GOLD;
-
-        Debug.Log($"데이터 로드 된 골드 : {CurrencyUserData.Gold}");
     }
 
     #endregion

@@ -9,7 +9,12 @@ public class StatSaveData
     public int LEVEL;
 
     /// <summary>
-    /// 체력
+    /// 체력.
     /// </summary>
     public int HP;
+
+    /// <summary>
+    /// 경험치.
+    /// </summary>
+    public int EXP;
 }
