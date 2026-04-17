@@ -22,7 +22,7 @@ public class MainMenuFactory : IFactory
         GameObject prefab = Object.Instantiate(UIMainMenu, _uiParent);
 
         // ºä.
-        MainMenuView view = prefab.GetComponent<MainMenuView>();
+        var view = prefab.GetComponent<MainMenuView>();
 
         // ¸ðµ¨.
         MainMenuModel model = new();

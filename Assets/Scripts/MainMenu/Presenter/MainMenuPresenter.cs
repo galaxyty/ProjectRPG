@@ -1,6 +1,5 @@
 using UnityEngine;
 using R3;
-using UnityEngine.SceneManagement;
 using Cysharp.Threading.Tasks;
 
 public class MainMenuPresenter : BasePresenter<MainMenuView, MainMenuModel>
