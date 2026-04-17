@@ -26,11 +26,11 @@ public class PlayerStatTopFactory : IFactory
         var levelView = prefab.GetComponentInChildren<PlayerStatTopLevelView>();
 
         // 모델 초기화.
-        /*var model = RepositoryManager.Instance.PlayerStatModelRepository.Get();
+        var model = RepositoryManager.Instance.PlayerStatModelRepository.Get();
         await model.InitializationAsync();
 
         // 각 프레젠트 생성.
-        PlayerStatTopHPPresenter hpPresenter = new(model);
+        /*PlayerStatTopHPPresenter hpPresenter = new(model);
         PlayerStatTopEXPPresenter expPresenter = new(model);
         PlayerStatTopIconPresenter iconPresenter = new(model);
         PlayerStatTopLevelPresenter levelPresenter = new(model);
