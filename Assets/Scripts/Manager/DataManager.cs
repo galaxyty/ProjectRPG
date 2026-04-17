@@ -1,15 +1,13 @@
 using Newtonsoft.Json;
 using UnityEngine;
 
-// TODO :: 재로그인 시 데이터들 이벤트 구독한거 취소 안해준게 문제 될 수 있으니
-// 추후 이 문제 고려해볼 것
 public class DataManager : BaseObjectSingleton<DataManager>
 {
     // 스탯 데이터.
-    public StatUserData StatUserData = new();
+    public StatUserData StatUserData { get; private set; } = new();
 
     // 재화 데이터.
-    public CurrencyUserData CurrencyUserData = new();
+    public CurrencyUserData CurrencyUserData { get; private set; } = new();
 
     // 세이브 데이터.
     private SaveData _saveData = new();
@@ -57,20 +55,29 @@ public class DataManager : BaseObjectSingleton<DataManager>
         Debug.Log($"데이터 로드 완료");
     }
 
+    /// <summary>
+    /// 싱글톤 정리.
+    /// </summary>
+    public void Dispose()
+    {
+        StatUserData.Dispose();
+        CurrencyUserData.Dispose();
+    }
+
     #region Data Save Functions
 
     // 스탯 저장.
     private void SaveStat()
     {
-        _saveData.StatSaveData.LEVEL = StatUserData.Level.Value;
-        _saveData.StatSaveData.HP = StatUserData.HP.Value;
-        _saveData.StatSaveData.EXP = StatUserData.EXP.Value;
+        _saveData.StatSaveData.LEVEL = StatUserData.Level.CurrentValue;
+        _saveData.StatSaveData.HP = StatUserData.HP.CurrentValue;
+        _saveData.StatSaveData.EXP = StatUserData.EXP.CurrentValue;
     }
 
     // 재화 저장.
     private void SaveCurrency()
     {
-        _saveData.CurrencySaveData.GOLD = CurrencyUserData.Gold.Value;
+        _saveData.CurrencySaveData.GOLD = CurrencyUserData.Gold.CurrentValue;
     }
 
     #endregion
@@ -80,6 +87,8 @@ public class DataManager : BaseObjectSingleton<DataManager>
     // 스탯 로드.
     private void LoadStat(SaveData data)
     {
+        StatUserData.Initialization();
+
         StatUserData.Level.Value = data.StatSaveData.LEVEL;
         StatUserData.HP.Value = data.StatSaveData.HP;
         StatUserData.EXP.Value = data.StatSaveData.EXP;
@@ -88,6 +97,8 @@ public class DataManager : BaseObjectSingleton<DataManager>
     // 재화 로드.
     private void LoadCurrency(SaveData data)
     {
+        CurrencyUserData.Initialization();
+
         CurrencyUserData.Gold.Value = data.CurrencySaveData.GOLD;
     }
 
