@@ -16,11 +16,25 @@ public class DataManager : BaseObjectSingleton<DataManager>
     // 세이브 키.
     private const string kSAVE_KEY = "SAVE";
 
+    // 로컬 자동 저장 시간 주기 (초).
+    private const int kSAVE_COUNT = 5;
+
+    /// <summary>
+    /// 저장 가능한 상태.
+    /// </summary>
+    public bool IsDirty = false;
+
     /// <summary>
     /// 데이터 저장
     /// </summary>
     public void Save()
     {
+        // 저장 여부 가능한 상태인지 확인.
+        if (IsDirty == false)
+        {
+            return;
+        }
+
         // 함수를 추가하여 데이터 저장을 구현할 것.
         SaveStat();         // 스탯 저장.
         SaveCurrency();     // 재화 저장.
@@ -67,6 +81,9 @@ public class DataManager : BaseObjectSingleton<DataManager>
         StatUserData.Initialization();
         CurrencyUserData.Initialization();
 
+        // 자동 저장 초기화 루프 동작.
+        AutoSaveLoop().Forget();
+
         return UniTask.CompletedTask;
     }
 
@@ -79,6 +96,27 @@ public class DataManager : BaseObjectSingleton<DataManager>
         CurrencyUserData.Dispose();
 
         return UniTask.CompletedTask;
+    }
+
+    // 일정 시간마다 로컬 자동 저장.    
+    private async UniTask AutoSaveLoop()
+    {
+        while (true)
+        {
+            await UniTask.Delay(kSAVE_COUNT * 1000);
+            OnAutoSave();
+        }
+    }
+
+    // 자동 저장 함수.
+    private void OnAutoSave()
+    {
+        if (IsDirty == false)
+        {
+            return;
+        }
+
+        Save();
     }
 
     #region Data Save Functions
@@ -116,4 +154,17 @@ public class DataManager : BaseObjectSingleton<DataManager>
     }
 
     #endregion
+
+    void OnApplicationPause(bool pause)
+    {
+        if (pause == true)
+        {
+            Save();
+        }
+    }
+
+    void OnApplicationQuit()
+    {
+        Save();
+    }
 }

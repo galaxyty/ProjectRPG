@@ -63,6 +63,9 @@ public class StatUserData : BaseUserData
             return;
         }
 
+        // 저장 가능 상태로 변경.
+        DataManager.Instance.IsDirty = true;
+
         // 레벨업 목표 경험치.
         int maxEXP = data.EXP;
 
@@ -101,5 +104,8 @@ public class StatUserData : BaseUserData
 
         // 남은 경험치로 셋팅.
         EXP.Value = remainingEXP;
+
+        // 저장 가능 상태로 변경.
+        DataManager.Instance.IsDirty = true;
     }
 }

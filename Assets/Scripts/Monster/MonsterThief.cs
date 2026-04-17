@@ -20,7 +20,7 @@ public class MonsterThief : BaseMonster
         
         MonsterManager.Instance.Die(this, Consts.kPATH_MONSTER_THIEF);
 
-        DataManager.Instance.StatUserData.OnAddEXP.OnNext(600);
+        DataManager.Instance.StatUserData.OnAddEXP.OnNext(100);
     }
 
     public override async UniTask OnHit()
