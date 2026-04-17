@@ -1,6 +1,8 @@
 using Cysharp.Threading.Tasks;
 using Newtonsoft.Json;
+using System;
 using UnityEngine;
+using R3;
 
 public class DataManager : BaseObjectSingleton<DataManager>
 {
@@ -17,7 +19,7 @@ public class DataManager : BaseObjectSingleton<DataManager>
     private const string kSAVE_KEY = "SAVE";
 
     // 로컬 자동 저장 시간 주기 (초).
-    private const int kSAVE_COUNT = 5;
+    private const double kSAVE_COUNT = 5;
 
     /// <summary>
     /// 저장 가능한 상태.
@@ -44,6 +46,8 @@ public class DataManager : BaseObjectSingleton<DataManager>
 
         PlayerPrefs.SetString(kSAVE_KEY, json);
         PlayerPrefs.Save();
+
+        IsDirty = false;
 
         Debug.Log($"데이터 저장 완료 : {json}");
     }
@@ -82,7 +86,10 @@ public class DataManager : BaseObjectSingleton<DataManager>
         CurrencyUserData.Initialization();
 
         // 자동 저장 초기화 루프 동작.
-        AutoSaveLoop().Forget();
+        Observable
+            .Interval(TimeSpan.FromSeconds(kSAVE_COUNT))
+            .Where(_ => IsDirty == true)
+            .Subscribe(_ => Save());
 
         return UniTask.CompletedTask;
     }
@@ -96,27 +103,6 @@ public class DataManager : BaseObjectSingleton<DataManager>
         CurrencyUserData.Dispose();
 
         return UniTask.CompletedTask;
-    }
-
-    // 일정 시간마다 로컬 자동 저장.    
-    private async UniTask AutoSaveLoop()
-    {
-        while (true)
-        {
-            await UniTask.Delay(kSAVE_COUNT * 1000);
-            OnAutoSave();
-        }
-    }
-
-    // 자동 저장 함수.
-    private void OnAutoSave()
-    {
-        if (IsDirty == false)
-        {
-            return;
-        }
-
-        Save();
     }
 
     #region Data Save Functions
