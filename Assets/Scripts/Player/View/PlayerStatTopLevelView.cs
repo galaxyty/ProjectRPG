@@ -11,4 +11,12 @@ public class PlayerStatTopLevelView : BaseView
     {
         return UniTask.CompletedTask;
     }
+
+    /// <summary>
+    /// 레벨 텍스트 갱신.
+    /// </summary>
+    public void SetLevel(string level)
+    {
+        _txtLevel.text = level;
+    }
 }
