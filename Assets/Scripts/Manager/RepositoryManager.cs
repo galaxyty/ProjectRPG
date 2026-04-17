@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 public class RepositoryManager : BaseObjectSingleton<RepositoryManager>
@@ -14,9 +15,11 @@ public class RepositoryManager : BaseObjectSingleton<RepositoryManager>
     /// <summary>
     /// 리포지토리 매니저 초기화.
     /// </summary>
-    public void Initialization()
+    public override UniTask InitializationAsync()
     {
         CreatePlayerStatModel();
+
+        return UniTask.CompletedTask;
     }
 
     // Player Stat 모델 생성.

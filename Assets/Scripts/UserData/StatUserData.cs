@@ -35,6 +35,22 @@ public class StatUserData : BaseUserData
         _statTableDatas = TableManager.Instance.StatTableDatas;
     }
 
+    /// <summary>
+    /// 1레벨 데이터로 셋팅.
+    /// </summary>
+    public void InitFirstData()
+    {
+        var data = _statTableDatas[0];
+
+        if (data == null)
+        {
+            return;
+        }
+
+        Level.Value = data.LEVEL;
+        HP.Value = data.HP;
+    }
+
     // 경험치 획득.
     private void AddEXP(int exp)
     {        

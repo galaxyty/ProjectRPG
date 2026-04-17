@@ -14,7 +14,7 @@ public class SceneLoadManager : BaseObjectSingleton<SceneLoadManager>
     /// <summary>
     /// 씬 매니저 초기화.
     /// </summary>    
-    public async UniTask InitializationAsync()
+    public override async UniTask InitializationAsync()
     {
         // 리소스에서 프리팹 로드.
         var loadingSceneView = await ResourceManager.Instance.LoadAsync<GameObject>(Consts.kPATH_LOADING_SCENE_VIEW);        

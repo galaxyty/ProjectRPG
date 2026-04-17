@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using Cysharp.Threading.Tasks;
 
 // 하이어라키 창에 생성하는 싱글톤.
 public class BaseObjectSingleton<T> : MonoBehaviour where T : BaseObjectSingleton<T>
@@ -38,5 +39,21 @@ public class BaseObjectSingleton<T> : MonoBehaviour where T : BaseObjectSingleto
     private void Awake()
     {
         DontDestroyOnLoad(this);
+    }
+
+    /// <summary>
+    /// 싱글톤 비동기 초기화.
+    /// </summary>
+    public virtual UniTask InitializationAsync()
+    {
+        return UniTask.CompletedTask;
+    }
+
+    /// <summary>
+    /// 싱글톤 비동기 해제.
+    /// </summary>
+    public virtual UniTask DisposeAsync()
+    {
+        return UniTask.CompletedTask;
     }
 }

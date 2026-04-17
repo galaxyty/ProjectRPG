@@ -30,7 +30,7 @@ public class PlayerStatTopFactory : IFactory
         await model.InitializationAsync();
 
         // 각 프레젠트 생성.
-        /*PlayerStatTopHPPresenter hpPresenter = new(model);
+        PlayerStatTopHPPresenter hpPresenter = new(model);
         PlayerStatTopEXPPresenter expPresenter = new(model);
         PlayerStatTopIconPresenter iconPresenter = new(model);
         PlayerStatTopLevelPresenter levelPresenter = new(model);
@@ -50,6 +50,6 @@ public class PlayerStatTopFactory : IFactory
 
         levelPresenter.SetModel(model);
         levelPresenter.SetView(levelView);
-        levelPresenter.Initialization();*/
+        levelPresenter.Initialization();
     }
 }

@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using Newtonsoft.Json;
 using UnityEngine;
 
@@ -41,6 +42,9 @@ public class DataManager : BaseObjectSingleton<DataManager>
         if (PlayerPrefs.HasKey(kSAVE_KEY) == false)
         {
             Debug.LogError($"{kSAVE_KEY} 데이터가 존재하지 않음");
+
+            // 1레벨 데이터로 셋팅.
+            StatUserData.InitFirstData();
             return;
         }
 
@@ -56,12 +60,25 @@ public class DataManager : BaseObjectSingleton<DataManager>
     }
 
     /// <summary>
-    /// 싱글톤 정리.
+    /// 초기화.
     /// </summary>
-    public void Dispose()
+    public override UniTask InitializationAsync()
+    {
+        StatUserData.Initialization();
+        CurrencyUserData.Initialization();
+
+        return UniTask.CompletedTask;
+    }
+
+    /// <summary>
+    /// 정리.
+    /// </summary>
+    public override UniTask DisposeAsync()
     {
         StatUserData.Dispose();
         CurrencyUserData.Dispose();
+
+        return UniTask.CompletedTask;
     }
 
     #region Data Save Functions
@@ -87,8 +104,6 @@ public class DataManager : BaseObjectSingleton<DataManager>
     // 스탯 로드.
     private void LoadStat(SaveData data)
     {
-        StatUserData.Initialization();
-
         StatUserData.Level.Value = data.StatSaveData.LEVEL;
         StatUserData.HP.Value = data.StatSaveData.HP;
         StatUserData.EXP.Value = data.StatSaveData.EXP;
@@ -97,8 +112,6 @@ public class DataManager : BaseObjectSingleton<DataManager>
     // 재화 로드.
     private void LoadCurrency(SaveData data)
     {
-        CurrencyUserData.Initialization();
-
         CurrencyUserData.Gold.Value = data.CurrencySaveData.GOLD;
     }
 

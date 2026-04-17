@@ -17,7 +17,7 @@ public class TableManager : BaseObjectSingleton<TableManager>
     /// <summary>
     /// 테이블 매니저 초기화.
     /// </summary>
-    public async UniTask InitializationAsync()
+    public override async UniTask InitializationAsync()
     {
         // 동시에 초기화.
         var statTask = LoadStatTable();

@@ -10,11 +10,14 @@ public class LobbyInitializer : BaseSceneInitializer
     {
         Debug.Log("로비 씬 초기화...");
 
+        // 데이터 매니저 초기화.
+        DataManager.Instance.InitializationAsync().Forget();
+
         // 데이터 로드.
         DataManager.Instance.Load();
 
         // 리포지토리 초기화.
-        RepositoryManager.Instance.Initialization();
+        RepositoryManager.Instance.InitializationAsync().Forget();
 
         // 메인 메뉴 팩토리.
         MainMenuFactory mainMenuFactory = new(_uiTransform);

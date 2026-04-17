@@ -10,7 +10,7 @@ public class AudioManager : BaseObjectSingleton<AudioManager>
     /// <summary>
     /// 오디오 매니저 초기화.
     /// </summary>
-    public async UniTask InitializationAsync()
+    public override async UniTask InitializationAsync()
     {        
         var audioMain = await ResourceManager.Instance.LoadAsync<AudioClip>(Consts.kAUDIO_MAIN);
 
