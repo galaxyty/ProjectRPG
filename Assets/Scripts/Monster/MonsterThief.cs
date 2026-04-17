@@ -19,6 +19,8 @@ public class MonsterThief : BaseMonster
         Debug.Log("도적 몬스터 사망");
         
         MonsterManager.Instance.Die(this, Consts.kPATH_MONSTER_THIEF);
+
+        DataManager.Instance.StatUserData.OnAddEXP.OnNext(600);
     }
 
     public override async UniTask OnHit()
