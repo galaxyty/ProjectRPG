@@ -100,12 +100,12 @@ public class StatUserData : BaseUserData
     // 레벨업.
     private void LevelUP(int level, int remainingEXP = 0)
     {
+        // 저장 가능 상태로 변경.
+        DataManager.Instance.IsDirty = true;
+
         Level.Value += level;
 
         // 남은 경험치로 셋팅.
         EXP.Value = remainingEXP;
-
-        // 저장 가능 상태로 변경.
-        DataManager.Instance.IsDirty = true;
     }
 }
