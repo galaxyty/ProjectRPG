@@ -1,0 +1,6 @@
+INDEX,NAME,COOLTIME
+int,string,int
+0,강타,10
+1,분노,20
+2,각성 베기,45
+3,두번 베기,13

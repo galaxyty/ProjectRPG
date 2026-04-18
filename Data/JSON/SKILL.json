@@ -1,0 +1,22 @@
+[
+  {
+    "INDEX": 0,
+    "NAME": "강타",
+    "COOLTIME": 10
+  },
+  {
+    "INDEX": 1,
+    "NAME": "분노",
+    "COOLTIME": 20
+  },
+  {
+    "INDEX": 2,
+    "NAME": "각성 베기",
+    "COOLTIME": 45
+  },
+  {
+    "INDEX": 3,
+    "NAME": "두번 베기",
+    "COOLTIME": 13
+  }
+]
