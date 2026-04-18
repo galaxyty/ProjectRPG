@@ -1,7 +1,7 @@
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-public class TestSceneInitializer : BaseSceneInitializer
+public class StageSceneInitializer : BaseSceneInitializer
 {
     [SerializeField]
     private Transform _uiTransform;

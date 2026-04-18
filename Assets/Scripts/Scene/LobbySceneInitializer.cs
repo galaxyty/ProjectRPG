@@ -1,7 +1,7 @@
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-public class LobbyInitializer : BaseSceneInitializer
+public class LobbySceneInitializer : BaseSceneInitializer
 {
     [SerializeField]
     private Transform _uiTransform;

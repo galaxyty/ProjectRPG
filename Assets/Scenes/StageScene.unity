@@ -936,7 +936,7 @@ GameObject:
   - component: {fileID: 1654786362}
   - component: {fileID: 1654786363}
   m_Layer: 0
-  m_Name: TestSceneInit
+  m_Name: StageSceneInit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

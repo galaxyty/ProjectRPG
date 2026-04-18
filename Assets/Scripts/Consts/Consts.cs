@@ -41,6 +41,6 @@ public static class Consts
     public static string kAD_KEY_JSON = "Json";
 
     // æ¿ ¿Ã∏ß.
-    public static string kSCENE_LOBBY = "Lobby";
-    public static string kSCENE_TEST_SCENE = "TestScene";
+    public static string kSCENE_LOBBY = "LobbyScene";
+    public static string kSCENE_STAGE = "StageScene";
 }
