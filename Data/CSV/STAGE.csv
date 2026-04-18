@@ -1,0 +1,4 @@
+INDEX,NAME,MONSTER_GROUP_0,MONSTER_GROUP_1
+int,string,int,int
+0,황무지,0,0
+1,초원,1,1

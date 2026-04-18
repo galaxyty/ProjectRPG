@@ -87,12 +87,27 @@ public class CSVToJsonConvert : EditorWindow
                 // 배열 처리 (_0, _1)
                 var split = key.Split('_');
 
-                if (split.Length == 2 && int.TryParse(split[1], out _))
+                // 마지막이 _숫자인지 확인.
+                if (split.Length >= 2 && int.TryParse(split[split.Length - 1], out _))
                 {
-                    string baseKey = split[0];
+                    // 배열로 나눔.
+                    string baseKey = "";
 
-                    if (!arrayMap.ContainsKey(baseKey))
+                    // 뒷 부분 숫자빼고 이름 다시 조합.
+                    for (int x = 0; x < split.Length - 1; x++)
+                    {
+                        if (x >= 1)
+                        {
+                            baseKey += "_";
+                        }
+
+                        baseKey += split[x];
+                    }
+
+                    if (arrayMap.ContainsKey(baseKey) == false)
+                    {
                         arrayMap[baseKey] = new List<object>();
+                    }
 
                     arrayMap[baseKey].Add(parsed);
                 }

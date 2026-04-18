@@ -15,6 +15,13 @@ MonoBehaviour:
   m_GroupName: Json
   m_GUID: 47002a7392c1ccb41b150bd51fbbd84c
   m_SerializeEntries:
+  - m_GUID: 18ac056248fe39f4ea71a287643465b0
+    m_Address: Json/MONSTER_GROUP
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Download
+    - Json
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 308bdd89cd8f4704da81c2dd6061d5f9
     m_Address: Json/SKILL
     m_ReadOnly: 0
@@ -22,8 +29,8 @@ MonoBehaviour:
     - Download
     - Json
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: cdf5b14b38e0d7045bdbda8e04067296
-    m_Address: Json/Test
+  - m_GUID: 737dc8e36a8fcbe428ef9da67f09e80c
+    m_Address: Json/STAGE
     m_ReadOnly: 0
     m_SerializedLabels:
     - Download

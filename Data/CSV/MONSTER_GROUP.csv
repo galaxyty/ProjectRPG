@@ -1,0 +1,4 @@
+INDEX,NAME,HP,EXP
+int,string,int,int
+0,도적,100,500
+1,슬라임,120,600
