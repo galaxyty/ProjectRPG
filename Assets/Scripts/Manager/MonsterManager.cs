@@ -73,14 +73,14 @@ public class MonsterManager : BaseObjectSingleton<MonsterManager>
     /// <summary>
     /// 해당 타입 몬스터 스폰.
     /// </summary>
-    public void Spawn(string name)
+    public BaseMonster Spawn(string name)
     {
         var pool = _poolDic[_monsterPrefabs[name]];
 
         if (pool == null)
         {
             Debug.Log($"{name} 이(가) _poolDic 키에 존재하지 않음");
-            return;
+            return null;
         }
 
         // 풀에서 가져옴.
@@ -89,7 +89,7 @@ public class MonsterManager : BaseObjectSingleton<MonsterManager>
         if (monster == null)
         {
             Debug.Log($"{monster} 이(가) 풀링에 없어서 못 가져옴");
-            return;
+            return null;
         }
 
         // 초기화.
@@ -100,6 +100,8 @@ public class MonsterManager : BaseObjectSingleton<MonsterManager>
 
         // 해당 하이어라키 창에 생성.
         monster.transform.parent = _hierachyDic[monster.Type].transform;
+
+        return monster;
     }
 
     /// <summary>

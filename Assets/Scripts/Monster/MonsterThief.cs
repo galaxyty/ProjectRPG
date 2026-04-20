@@ -10,8 +10,6 @@ public class MonsterThief : BaseMonster
         _type = Enums.MonsterType.Normal;
         _spriteRenderer.color = new Color(1, 1, 1);
         SetHP(30);
-
-        transform.position = new Vector3(Random.Range(-3.0f, 3.0f), Random.Range(-1.0f, 1.0f), 0);
     }
 
     public override void OnDie()
