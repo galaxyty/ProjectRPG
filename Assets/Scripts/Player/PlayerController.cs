@@ -24,6 +24,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private Animator _animator;
 
+    [SerializeField]
+    [Header("이동 패턴")]
+    private BaseMovePattern _movePattern;
+
     // 이동중인 방향 벡터.
     [Header("이동중인 방향 벡터")]
     [SerializeField]
@@ -56,6 +60,12 @@ public class PlayerController : MonoBehaviour
     public Animator Animator
     {
         get { return _animator; }
+        private set { }
+    }
+
+    public BaseMovePattern MovePattern
+    {
+        get { return _movePattern; }
         private set { }
     }
 

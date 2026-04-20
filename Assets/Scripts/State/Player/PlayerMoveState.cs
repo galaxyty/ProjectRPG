@@ -31,12 +31,9 @@ public class PlayerMoveState : IState
 
         _controller.SpriteRenderer.flipX = dir < 0 ? true : false;
 
-        _controller.transform.position = Vector3.MoveTowards(
-        _controller.transform.position,
-        _target.transform.position,
-        1.0f * Time.deltaTime
-        );
+        // ¿òÁ÷ÀÓ.
+        _controller.MovePattern?.Move(_controller.transform, _target.transform);
 
-        _controller.Animator.SetInteger(Consts.kANIMATOR_KEY_STATE, (int)PlayerController.eSTATE.Move);
+        _controller.Animator?.SetInteger(Consts.kANIMATOR_KEY_STATE, (int)PlayerController.eSTATE.Move);
     }
 }
