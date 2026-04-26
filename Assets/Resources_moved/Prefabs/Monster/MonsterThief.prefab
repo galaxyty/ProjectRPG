@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1726085205720640224}
   - component: {fileID: 5867516411453080892}
   - component: {fileID: 5680651432841375676}
+  - component: {fileID: -5252311971831935001}
   m_Layer: 0
   m_Name: MonsterThief
   m_TagString: Untagged
@@ -125,6 +126,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spriteRenderer: {fileID: 5624302618861252090}
+  _animator: {fileID: 1726085205720640224}
+  _movePattern: {fileID: -5252311971831935001}
 --- !u!61 &5680651432841375676
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -171,3 +174,15 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.32, y: 0.43}
   m_EdgeRadius: 0
+--- !u!114 &-5252311971831935001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3769445271638412007}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d5088d4ec1b80e499b686dba8c92060, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

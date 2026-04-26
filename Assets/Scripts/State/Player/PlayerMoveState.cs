@@ -34,6 +34,6 @@ public class PlayerMoveState : IState
         // ¿òÁ÷ÀÓ.
         _controller.MovePattern?.Move(_controller.transform, _target.transform);
 
-        _controller.Animator?.SetInteger(Consts.kANIMATOR_KEY_STATE, (int)PlayerController.eSTATE.Move);
+        _controller.Animator?.SetInteger(Consts.kANIMATOR_KEY_STATE, (int)Consts.eSTATE.Move);
     }
 }
