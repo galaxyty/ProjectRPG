@@ -3,6 +3,9 @@ using UnityEngine;
 // 공격 가능 상태 여부 반환.
 public class AttackRangeDecide : IDecide
 {
+    /// <summary>
+    /// 범위 안에 있다면 공격.
+    /// </summary>
     public bool Decide(BaseCharacter character)
     {
         // null 체크.

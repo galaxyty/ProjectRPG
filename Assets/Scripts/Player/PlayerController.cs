@@ -13,8 +13,8 @@ public class PlayerController : BaseCharacter
         ReverseAttackTime = 200;
 
         // 상태 변경 조건 룰 추가.
-        _decideSystem.AddRule(new AttackRangeDecide(), Consts.eSTATE.Attack);
         _decideSystem.AddRule(new TargetDecide(), Consts.eSTATE.Move);
+        _decideSystem.AddRule(new AttackRangeDecide(), Consts.eSTATE.Attack);
 
         // 일반 공격 로직 셋팅.
         AttackBehavior = new RangeAttackBehavior(_kATTACK_RANGE);
@@ -79,7 +79,6 @@ public class PlayerController : BaseCharacter
     /// </summary>
     public void OnAttackEnd()
     {
-        Target = null;
         _state = Consts.eSTATE.Idle;
         SetState(_state);
     }
