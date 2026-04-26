@@ -79,6 +79,7 @@ public class PlayerController : BaseCharacter
     /// </summary>
     public void OnAttackEnd()
     {
+        Target = null;
         _state = Consts.eSTATE.Idle;
         SetState(_state);
     }
