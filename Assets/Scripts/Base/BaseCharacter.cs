@@ -36,6 +36,7 @@ public abstract class BaseCharacter : MonoBehaviour, IHealth
     protected Consts.eSTATE _state;
 
     // 타겟.
+    [HideInInspector]
     public BaseMonster Target;
 
     // 타겟 공격 시작 범위.
@@ -74,7 +75,7 @@ public abstract class BaseCharacter : MonoBehaviour, IHealth
         private set { }
     }
 
-    protected void Update()
+    protected virtual void Update()
     {
         // 레이어 Order.
         _spriteRenderer.sortingOrder = -(int)(transform.position.y * 100);

@@ -1,5 +1,4 @@
 using Cysharp.Threading.Tasks;
-using R3;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -13,6 +12,10 @@ public class PlayerController : BaseCharacter
         AttackStartRange = 0.25f;
         ReverseAttackTime = 200;
 
+        // 상태 변경 조건 룰 추가.
+        _decideSystem.AddRule(new AttackRangeDecide(), Consts.eSTATE.Attack);
+        _decideSystem.AddRule(new TargetDecide(), Consts.eSTATE.Move);
+
         // 일반 공격 로직 셋팅.
         AttackBehavior = new RangeAttackBehavior(_kATTACK_RANGE);
 
@@ -23,21 +26,14 @@ public class PlayerController : BaseCharacter
 
         // 상태 적용.
         _currentState = _idleState;
-        _state = Consts.eSTATE.Idle;
-
-        _decideSystem.AddRule(new AttackRangeDecide(), Consts.eSTATE.Attack);
-        _decideSystem.AddRule(new TargetDecide(), Consts.eSTATE.Move);
+        _state = Consts.eSTATE.Idle;        
     }
 
-    void Start()
+    protected override void Update()
     {
-        // 이벤트 구독.
-        Observable.EveryUpdate()
-            .Subscribe(_ =>
-            {
-                ApplyState();
-            })
-            .AddTo(this);        
+        base.Update();
+
+        ApplyState();
     }
 
     // 상태머신 적용.
@@ -84,6 +80,7 @@ public class PlayerController : BaseCharacter
     public void OnAttackEnd()
     {
         _state = Consts.eSTATE.Idle;
+        SetState(_state);
     }
 
     // 키 입력.
