@@ -10,6 +10,11 @@ public class AttackState : IState
 
     public void UpdateState()
     {
+        if (_character.Target == null)
+        {
+            return;
+        }
+
         float dir = _character.transform.position.DirectionX(_character.Target.transform.position);
 
         _character.SpriteRenderer.flipX = dir < 0 ? true : false;

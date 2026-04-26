@@ -7,7 +7,7 @@ public class StraightMove : BaseMovePattern
         transform.position = Vector3.MoveTowards(
         transform.transform.position,
         target.transform.position,
-        1.0f * Time.deltaTime
+        _moveSpeed * Time.deltaTime
         );
     }
 }

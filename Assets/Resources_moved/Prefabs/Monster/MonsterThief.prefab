@@ -128,6 +128,8 @@ MonoBehaviour:
   _spriteRenderer: {fileID: 5624302618861252090}
   _animator: {fileID: 1726085205720640224}
   _movePattern: {fileID: -5252311971831935001}
+  _currentDirection: {x: 0, y: 0}
+  Target: {fileID: 0}
 --- !u!61 &5680651432841375676
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -186,3 +188,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d5088d4ec1b80e499b686dba8c92060, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _moveSpeed: 0.2

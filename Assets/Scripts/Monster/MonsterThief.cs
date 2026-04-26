@@ -1,33 +1,30 @@
 using Cysharp.Threading.Tasks;
 using UnityEngine;
-using R3;
 
 public class MonsterThief : BaseMonster
 {
-    private void Awake()
+    protected override void Awake()
     {
-        /*_idleState = new MonsterThifeIdleState(this);
-        _moveState = new MonsterThifeMoveState(this);*/
+        AttackStartRange = 0.25f;
+        ReverseAttackTime = 200;
 
-        // 상태 적용.
-        _currentState = _idleState;
-        _state = Consts.eSTATE.Idle;
+        // 상태 변경 조건 룰 추가.
+        _decideSystem.AddRule(new FindPlayerDecide(), Consts.eSTATE.Move);
+        //_decideSystem.AddRule(new AttackRangeDecide(), Consts.eSTATE.Attack);
 
-        Observable.EveryUpdate()
-            .Subscribe(_ =>
-            {
-                ApplyState();
-            })
-            .AddTo(this);
+        // 일반 공격 로직 셋팅.
+        //AttackBehavior = new RangeAttackBehavior(_kATTACK_RANGE);
+
+        base.Awake();
     }
 
-    // 상태머신 적용.
-    private void ApplyState()
+    protected override void Update()
     {
-        _state = Consts.eSTATE.Move;
+        base.Update();
 
-        //_currentState.UpdateState();
+        ApplyState();
     }
+
     public override void Initialization()
     {
         Debug.Log("도적 몬스터 초기화");

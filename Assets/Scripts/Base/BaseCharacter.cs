@@ -37,7 +37,7 @@ public abstract class BaseCharacter : MonoBehaviour, IHealth
 
     // 타겟.
     [HideInInspector]
-    public BaseMonster Target;
+    public BaseCharacter Target;
 
     // 타겟 공격 시작 범위.
     public float AttackStartRange { get; protected set; }
@@ -73,6 +73,18 @@ public abstract class BaseCharacter : MonoBehaviour, IHealth
     {
         get { return _movePattern; }
         private set { }
+    }
+
+    protected virtual void Awake()
+    {
+        // 상태 초기화.
+        _idleState = new(this);
+        _moveState = new(this);
+        _attackState = new(this);
+
+        // 상태 적용.
+        _currentState = _idleState;
+        _state = Consts.eSTATE.Idle;
     }
 
     protected virtual void Update()
@@ -118,6 +130,25 @@ public abstract class BaseCharacter : MonoBehaviour, IHealth
         };
 
         _state = state;
+    }
+
+    // 상태머신 적용.
+    protected void ApplyState()
+    {
+        // 애니메이터가 비활성화 되면 상태 갱신 안함.
+        if (_animator.enabled == false)
+        {
+            return;
+        }
+
+        // 상태 변경.
+        SetState(_decideSystem.DecideState(this));
+
+        // 방향 벡터 갱신.
+        UpdateDirection();
+
+        // 상태 호출.
+        _currentState.UpdateState();
     }
 
     // 방향 벡터 갱신.
