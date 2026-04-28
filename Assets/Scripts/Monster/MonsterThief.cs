@@ -1,6 +1,5 @@
 using Cysharp.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.TextCore.Text;
 
 public class MonsterThief : BaseMonster
 {
@@ -47,7 +46,8 @@ public class MonsterThief : BaseMonster
         
         MonsterManager.Instance.Die(this, Consts.kPATH_MONSTER_THIEF);
 
-        DataManager.Instance.StatUserData.OnAddEXP.OnNext(100);
+        // °æÇèÄ¡ È¹µæ.
+        Target?.AddEXP(400);
     }
 
     public override async UniTask OnHit()

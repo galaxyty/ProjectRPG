@@ -48,8 +48,11 @@ public abstract class BaseCharacter : MonoBehaviour
     // 기본 공격 역경직 시간 (1000 = 1초 단위).
     public int ReverseAttackTime { get; protected set; }
 
-    // 체력.
+    // 현재 체력.
     protected ReactiveProperty<int> _currentHP = new();
+
+    // 현재 경험치.
+    protected ReactiveProperty<int> _currentEXP = new();
 
     // 프로퍼티.
     public Vector2 CurrentDirection
@@ -88,24 +91,7 @@ public abstract class BaseCharacter : MonoBehaviour
         _spriteRenderer.sortingOrder = -(int)(transform.position.y * 100);
 
         ApplyState();
-    }
-
-    /// <summary>
-    /// 데미지 받음 (피격).
-    /// </summary>    
-    public void TakeDamage(int damage)
-    {
-        Debug.Log($"받은 데미지 : {damage}");
-
-        _currentHP.Value -= damage;
-
-        OnHit();
-
-        if (_currentHP.Value <= 0)
-        {
-            OnDie();
-        }
-    }
+    }    
 
     // 상태머신 갱신.
     protected void SetState(Enums.eSTATE state)
@@ -147,6 +133,31 @@ public abstract class BaseCharacter : MonoBehaviour
         if (Target != null)
         {
             _currentDirection = (Target.transform.position - transform.position).normalized;
+        }
+    }
+
+    /// <summary>
+    /// 경험치 획득.
+    /// </summary>
+    public void AddEXP(int exp)
+    {
+        _currentEXP.Value += exp;
+    }
+
+    /// <summary>
+    /// 데미지 받음 (피격).
+    /// </summary>    
+    public void TakeDamage(int damage)
+    {
+        Debug.Log($"받은 데미지 : {damage}");
+
+        _currentHP.Value -= damage;
+
+        OnHit();
+
+        if (_currentHP.Value <= 0)
+        {
+            OnDie();
         }
     }
 

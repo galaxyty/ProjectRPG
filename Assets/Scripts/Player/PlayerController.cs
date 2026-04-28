@@ -25,6 +25,7 @@ public class PlayerController : BaseCharacter
         AttackStrategy = new MeleeAOEAttack(_kATTACK_RANGE);
 
         _currentHP = DataManager.Instance.StatUserData.HP;
+        _currentEXP = DataManager.Instance.StatUserData.EXP;
 
         base.Awake();
     }

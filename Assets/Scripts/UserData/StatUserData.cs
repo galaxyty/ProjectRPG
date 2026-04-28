@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEngine;
 using R3;
 
 public class StatUserData : BaseUserData
@@ -18,21 +19,16 @@ public class StatUserData : BaseUserData
     /// </summary>
     public ReactiveProperty<int> EXP { get; private set; } = new();
 
-    /// <summary>
-    /// 경험치 획득 이벤트.
-    /// </summary>
-    public Subject<int> OnAddEXP = new();
-
     // 스탯 테이블.
     private List<StatTableData> _statTableDatas;
 
     public override void Initialization()
     {
-        OnAddEXP
+        _statTableDatas = TableManager.Instance.StatTableDatas;
+
+        EXP
             .Subscribe(AddEXP)
             .AddTo(_dispose);
-
-        _statTableDatas = TableManager.Instance.StatTableDatas;
     }
 
     /// <summary>
@@ -55,11 +51,16 @@ public class StatUserData : BaseUserData
     private void AddEXP(int exp)
     {        
         // 목표 경험치.
+        if (_statTableDatas == null)
+        {
+            Debug.LogError("_statTableDatas 테이블 데이터가 존재하지 않음");
+            return;
+        }
+
         var data = _statTableDatas.Find(data => data.LEVEL == Level.Value);
 
         if (data == null)
         {
-            EXP.Value = 0;
             return;
         }
 
@@ -68,9 +69,6 @@ public class StatUserData : BaseUserData
 
         // 레벨업 목표 경험치.
         int maxEXP = data.EXP;
-
-        // 경험치 증가.
-        EXP.Value += exp;        
 
         // 레벨업 조건 확인.
         if (EXP.Value >= maxEXP)
