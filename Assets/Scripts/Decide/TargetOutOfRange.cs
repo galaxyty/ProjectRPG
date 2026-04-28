@@ -1,11 +1,13 @@
 using UnityEngine;
 
-public class FindPlayerDecide : IDecide
+// 타겟이 존재하고 해당 범위 밖에 있는지 검색.
+public class TargetOutOfRange : IDecide
 {
+    /// <summary>
+    /// 타겟이 존재하고 범위 밖에면 true (주로 이동 상태 반환용).
+    /// </summary>    
     public bool Decide(BaseCharacter character)
     {
-        character.Target = GameObject.Find("Player").GetComponent<BaseCharacter>();
-
         if (character.Target == null)
         {
             return false;

@@ -1,5 +1,6 @@
 using Cysharp.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 
 public class MonsterThief : BaseMonster
 {
@@ -10,8 +11,8 @@ public class MonsterThief : BaseMonster
         ReverseAttackTime = 200;
 
         // 상태 변경 조건 룰 추가.
-        _decideSystem.AddRule(new FindPlayerDecide(), Enums.eSTATE.Move);
-        _decideSystem.AddRule(new AttackRangeDecide(), Enums.eSTATE.Attack);
+        _decideSystem.AddRule(new TargetOutOfRange(), Enums.eSTATE.Move);
+        _decideSystem.AddRule(new TargetInOfRange(), Enums.eSTATE.Attack);
 
         // 움직임 로직 셋팅.
         MoveStrategy = new StraightMove(_moveSpeed);
@@ -20,6 +21,14 @@ public class MonsterThief : BaseMonster
         AttackStrategy = new MeleeSingleAttack();
 
         base.Awake();
+    }
+
+    protected override void Update()
+    {
+        // 타겟 찾기.
+        Target = GameObject.Find("Player").GetComponent<BaseCharacter>();
+
+        base.Update();
     }
 
     public override void Initialization()

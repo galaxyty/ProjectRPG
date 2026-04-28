@@ -1,6 +1,7 @@
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.TextCore.Text;
 
 public class PlayerController : BaseCharacter
 {
@@ -14,8 +15,8 @@ public class PlayerController : BaseCharacter
         ReverseAttackTime = 200;
 
         // 상태 변경 조건 룰 추가.
-        _decideSystem.AddRule(new TargetDecide(), Enums.eSTATE.Move);
-        _decideSystem.AddRule(new AttackRangeDecide(), Enums.eSTATE.Attack);
+        _decideSystem.AddRule(new TargetOutOfRange(), Enums.eSTATE.Move);
+        _decideSystem.AddRule(new TargetInOfRange(), Enums.eSTATE.Attack);
 
         // 움직임 로직 셋팅.
         MoveStrategy = new StraightMove(_moveSpeed);
@@ -26,6 +27,14 @@ public class PlayerController : BaseCharacter
         _currentHP = DataManager.Instance.StatUserData.HP;
 
         base.Awake();
+    }
+
+    protected override void Update()
+    {
+        // 타겟 찾기.
+        Target = MonsterManager.Instance.GetNearTarget(transform.position);
+
+        base.Update();
     }
     
     public override async UniTask OnHit()
