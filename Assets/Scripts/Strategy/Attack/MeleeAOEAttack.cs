@@ -1,16 +1,17 @@
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-public class RangeAttackBehavior : IBehavior
+// 근접 범위 공격.
+public class MeleeAOEAttack : IAttackStrategy
 {
     private readonly float _kATTACK_RANGE;
 
-    public RangeAttackBehavior(float attackRange)
+    public MeleeAOEAttack(float attackRange)
     {
         _kATTACK_RANGE = attackRange;
     }
 
-    public async UniTask OnBehavior(BaseCharacter character)
+    public async UniTask ExecuteAttack(BaseCharacter character)
     {
         if (character.Target == null)
         {

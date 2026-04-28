@@ -3,6 +3,14 @@
 /// </summary>
 public static class Enums
 {
+    // 상태.
+    public enum eSTATE
+    {
+        Idle = 0,
+        Move,
+        Attack
+    }
+
     public enum MonsterType
     {
         Boss,       // 보스.

@@ -9,25 +9,22 @@ public class PlayerController : BaseCharacter
 
     protected override void Awake()
     {
+        _moveSpeed = 1.0f;
         AttackStartRange = 0.25f;
         ReverseAttackTime = 200;
 
         // 상태 변경 조건 룰 추가.
-        _decideSystem.AddRule(new TargetDecide(), Consts.eSTATE.Move);
-        _decideSystem.AddRule(new AttackRangeDecide(), Consts.eSTATE.Attack);
+        _decideSystem.AddRule(new TargetDecide(), Enums.eSTATE.Move);
+        _decideSystem.AddRule(new AttackRangeDecide(), Enums.eSTATE.Attack);
+
+        // 움직임 로직 셋팅.
+        MoveStrategy = new StraightMove(_moveSpeed);
 
         // 일반 공격 로직 셋팅.
-        AttackBehavior = new RangeAttackBehavior(_kATTACK_RANGE);
+        AttackStrategy = new MeleeAOEAttack(_kATTACK_RANGE);
 
         base.Awake();
-    }
-
-    protected override void Update()
-    {
-        base.Update();
-
-        ApplyState();
-    }    
+    }   
 
     /// <summary>
     /// 애니메이터 콜백 함수.
@@ -39,7 +36,7 @@ public class PlayerController : BaseCharacter
             return UniTask.CompletedTask;
         }
 
-        AttackBehavior.OnBehavior(this).Forget();
+        AttackStrategy.ExecuteAttack(this).Forget();
 
         return UniTask.CompletedTask;
     }
@@ -53,7 +50,7 @@ public class PlayerController : BaseCharacter
     /// </summary>
     public void OnAttackEnd()
     {
-        _state = Consts.eSTATE.Idle;
+        _state = Enums.eSTATE.Idle;
         SetState(_state);
     }
 

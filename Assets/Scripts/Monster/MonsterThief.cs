@@ -5,24 +5,21 @@ public class MonsterThief : BaseMonster
 {
     protected override void Awake()
     {
+        _moveSpeed = 0.2f;
         AttackStartRange = 0.25f;
         ReverseAttackTime = 200;
 
         // 상태 변경 조건 룰 추가.
-        _decideSystem.AddRule(new FindPlayerDecide(), Consts.eSTATE.Move);
-        //_decideSystem.AddRule(new AttackRangeDecide(), Consts.eSTATE.Attack);
+        _decideSystem.AddRule(new FindPlayerDecide(), Enums.eSTATE.Move);
+        _decideSystem.AddRule(new AttackRangeDecide(), Enums.eSTATE.Attack);
+
+        // 움직임 로직 셋팅.
+        MoveStrategy = new StraightMove(_moveSpeed);
 
         // 일반 공격 로직 셋팅.
-        //AttackBehavior = new RangeAttackBehavior(_kATTACK_RANGE);
+        AttackStrategy = new MeleeSingleAttack();
 
         base.Awake();
-    }
-
-    protected override void Update()
-    {
-        base.Update();
-
-        ApplyState();
     }
 
     public override void Initialization()

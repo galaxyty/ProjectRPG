@@ -10,6 +10,6 @@ public class IdleState : IState
 
     public void UpdateState()
     {
-        _character.Animator.SetInteger(Consts.kANIMATOR_KEY_STATE, (int)Consts.eSTATE.Idle);
+        _character.Animator.SetInteger(Consts.kANIMATOR_KEY_STATE, (int)Enums.eSTATE.Idle);
     }
 }

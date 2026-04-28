@@ -2,24 +2,23 @@ using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 public abstract class BaseCharacter : MonoBehaviour, IHealth
-{
+{    
     [SerializeField]
     protected SpriteRenderer _spriteRenderer;
 
     [SerializeField]
-    protected Animator _animator;
-
-    [SerializeField]
-    [Header("이동 패턴")]
-    protected BaseMovePattern _movePattern;
+    protected Animator _animator;    
 
     // 이동중인 방향 벡터.
     [Header("이동중인 방향 벡터")]
     [SerializeField]
     protected Vector2 _currentDirection = Vector2.zero;
 
+    // 움직임 로직 인터페이스.
+    public IMoveStrategy MoveStrategy;
+
     // 공격 로직 인터페이스.
-    public IBehavior AttackBehavior { get; protected set; }
+    public IAttackStrategy AttackStrategy { get; protected set; }
 
     // 상태 변경 판단 시스템.
     protected DecideSystem _decideSystem = new();
@@ -33,11 +32,14 @@ public abstract class BaseCharacter : MonoBehaviour, IHealth
     protected IState _currentState;
 
     // 현재 상태.
-    protected Consts.eSTATE _state;
+    protected Enums.eSTATE _state;
 
     // 타겟.
     [HideInInspector]
     public BaseCharacter Target;
+
+    // 이동 속도.
+    protected float _moveSpeed;
 
     // 타겟 공격 시작 범위.
     public float AttackStartRange { get; protected set; }
@@ -69,12 +71,6 @@ public abstract class BaseCharacter : MonoBehaviour, IHealth
         private set { }
     }
 
-    public BaseMovePattern MovePattern
-    {
-        get { return _movePattern; }
-        private set { }
-    }
-
     protected virtual void Awake()
     {
         // 상태 초기화.
@@ -84,13 +80,15 @@ public abstract class BaseCharacter : MonoBehaviour, IHealth
 
         // 상태 적용.
         _currentState = _idleState;
-        _state = Consts.eSTATE.Idle;
+        _state = Enums.eSTATE.Idle;
     }
 
     protected virtual void Update()
     {
         // 레이어 Order.
         _spriteRenderer.sortingOrder = -(int)(transform.position.y * 100);
+
+        ApplyState();
     }
 
     /// <summary>
@@ -119,13 +117,13 @@ public abstract class BaseCharacter : MonoBehaviour, IHealth
     }
 
     // 상태머신 갱신.
-    protected void SetState(Consts.eSTATE state)
+    protected void SetState(Enums.eSTATE state)
     {
         _currentState = _state switch
         {
-            Consts.eSTATE.Idle => _idleState,
-            Consts.eSTATE.Move => _moveState,
-            Consts.eSTATE.Attack => _attackState,
+            Enums.eSTATE.Idle => _idleState,
+            Enums.eSTATE.Move => _moveState,
+            Enums.eSTATE.Attack => _attackState,
             _ => _idleState
         };
 

@@ -1,14 +1,6 @@
 
 public static class Consts
-{
-    // 상태.
-    public enum eSTATE
-    {
-        Idle = 0,
-        Move,
-        Attack
-    }
-
+{    
     // 프리팹.
     public static string kPATH_PLAYER_STAT_VIEW = "Prefabs/PlayerStatView";
     public static string kPATH_MAIN_MENU_VIEW = "Prefabs/MainMenuView";

@@ -19,6 +19,6 @@ public class AttackState : IState
 
         _character.SpriteRenderer.flipX = dir < 0 ? true : false;
 
-        _character.Animator.SetInteger(Consts.kANIMATOR_KEY_STATE, (int)Consts.eSTATE.Attack);
+        _character.Animator.SetInteger(Consts.kANIMATOR_KEY_STATE, (int)Enums.eSTATE.Attack);
     }
 }
