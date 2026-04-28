@@ -15,8 +15,8 @@ public class PlayerController : BaseCharacter
         ReverseAttackTime = 200;
 
         // 상태 변경 조건 룰 추가.
-        _decideSystem.AddRule(new TargetOutOfRange(), Enums.eSTATE.Move);
-        _decideSystem.AddRule(new TargetInOfRange(), Enums.eSTATE.Attack);
+        _decideSystem.AddRule(new TargetOutOfRangeDecide(), Enums.eSTATE.Move);
+        _decideSystem.AddRule(new TargetInOfRangeDecide(), Enums.eSTATE.Attack);
 
         // 움직임 로직 셋팅.
         MoveStrategy = new StraightMove(_moveSpeed);

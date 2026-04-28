@@ -1,7 +1,7 @@
 using UnityEngine;
 
 // 타겟이 있고 범위 안에 있는지 검색.
-public class TargetInOfRange : IDecide
+public class TargetInOfRangeDecide : IDecide
 {
     /// <summary>
     /// 타겟이 존재하고 범위 안에 들었다면 true (주로 기본 공격 상태 반환용).

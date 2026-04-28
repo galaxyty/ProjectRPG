@@ -1,7 +1,7 @@
 using UnityEngine;
 
 // 타겟이 존재하고 해당 범위 밖에 있는지 검색.
-public class TargetOutOfRange : IDecide
+public class TargetOutOfRangeDecide : IDecide
 {
     /// <summary>
     /// 타겟이 존재하고 범위 밖에면 true (주로 이동 상태 반환용).
