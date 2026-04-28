@@ -23,6 +23,8 @@ public class PlayerController : BaseCharacter
         // 일반 공격 로직 셋팅.
         AttackStrategy = new MeleeAOEAttack(_kATTACK_RANGE);
 
+        _currentHP = DataManager.Instance.StatUserData.HP;
+
         base.Awake();
     }
     

@@ -1,7 +1,8 @@
 using Cysharp.Threading.Tasks;
+using R3;
 using UnityEngine;
 
-public abstract class BaseCharacter : MonoBehaviour, IHealth
+public abstract class BaseCharacter : MonoBehaviour
 {    
     [SerializeField]
     protected SpriteRenderer _spriteRenderer;
@@ -47,18 +48,16 @@ public abstract class BaseCharacter : MonoBehaviour, IHealth
     // 기본 공격 역경직 시간 (1000 = 1초 단위).
     public int ReverseAttackTime { get; protected set; }
 
+    // 체력.
+    protected ReactiveProperty<int> _currentHP = new();
+
+    // 프로퍼티.
     public Vector2 CurrentDirection
     {
         get { return _currentDirection; }
         private set { }
     }
-
-    /// <summary>
-    /// 체력.
-    /// </summary>
-    public int Hp { get; private set; }
-
-    // 프로퍼티.
+    
     public SpriteRenderer SpriteRenderer
     {
         get { return _spriteRenderer; }
@@ -92,25 +91,17 @@ public abstract class BaseCharacter : MonoBehaviour, IHealth
     }
 
     /// <summary>
-    /// 체력 셋팅
-    /// </summary>    
-    public void SetHP(int hp)
-    {
-        Hp = hp;
-    }
-
-    /// <summary>
     /// 데미지 받음 (피격).
     /// </summary>    
     public void TakeDamage(int damage)
     {
         Debug.Log($"받은 데미지 : {damage}");
 
-        Hp -= damage;
+        _currentHP.Value -= damage;
 
         OnHit();
 
-        if (Hp <= 0)
+        if (_currentHP.Value <= 0)
         {
             OnDie();
         }

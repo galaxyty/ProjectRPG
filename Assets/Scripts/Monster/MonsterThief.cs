@@ -28,7 +28,8 @@ public class MonsterThief : BaseMonster
 
         Type = Enums.MonsterType.Normal;
         _spriteRenderer.color = new Color(1, 1, 1);
-        SetHP(30);
+
+        _currentHP.Value = 30;
     }
 
     public override void OnDie()

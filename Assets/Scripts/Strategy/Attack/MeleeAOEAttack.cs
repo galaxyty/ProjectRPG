@@ -23,7 +23,7 @@ public class MeleeAOEAttack : IAttackStrategy
 
         foreach (var hit in hits)
         {
-            if (hit.TryGetComponent<IHealth>(out var monster))
+            if (hit.TryGetComponent<BaseCharacter>(out var monster))
             {
                 monster.TakeDamage(10);
             }
