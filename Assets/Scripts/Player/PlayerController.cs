@@ -24,21 +24,15 @@ public class PlayerController : BaseCharacter
         AttackStrategy = new MeleeAOEAttack(_kATTACK_RANGE);
 
         base.Awake();
-    }   
-
-    /// <summary>
-    /// 애니메이터 콜백 함수.
-    /// </summary>
-    public override UniTask OnHit()
+    }
+    
+    public override async UniTask OnHit()
     {
-        if (_attackState == null)
-        {
-            return UniTask.CompletedTask;
-        }
+        _spriteRenderer.color = new Color(1, 0, 0);
 
-        AttackStrategy.ExecuteAttack(this).Forget();
+        await UniTask.Delay(200);
 
-        return UniTask.CompletedTask;
+        _spriteRenderer.color = new Color(1, 1, 1);
     }
 
     public override void OnDie()
@@ -46,9 +40,22 @@ public class PlayerController : BaseCharacter
     }
 
     /// <summary>
+    /// 애니메이터 콜백 함수.
+    /// </summary>
+    public void OnAnimationHit()
+    {
+        if (_attackState == null)
+        {
+            return;
+        }
+
+        AttackStrategy.ExecuteAttack(this).Forget();
+    }
+
+    /// <summary>
     /// 애니메이터 기본 공격 종료 함수.
     /// </summary>
-    public void OnAttackEnd()
+    public void OnAnimationAttackEnd()
     {
         _state = Enums.eSTATE.Idle;
         SetState(_state);

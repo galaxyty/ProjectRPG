@@ -3,9 +3,22 @@ using UnityEngine;
 
 // 단일 타겟 공격.
 public class MeleeSingleAttack : IAttackStrategy
-{
-    public UniTask ExecuteAttack(BaseCharacter character)
+{    
+    public async UniTask ExecuteAttack(BaseCharacter character)
     {
-        return UniTask.CompletedTask;
+        if (character.Target == null)
+        {
+            return;
+        }
+
+        // 공격.
+        character.Target.TakeDamage(10);
+
+        character.Animator.enabled = false;
+
+        // 역경직 딜레이.
+        await UniTask.Delay(character.ReverseAttackTime);
+
+        character.Animator.enabled = true;
     }
 }

@@ -48,4 +48,26 @@ public class MonsterThief : BaseMonster
 
         _spriteRenderer.color = new Color(1, 1, 1);
     }
+
+    /// <summary>
+    /// 애니메이터 콜백 함수.
+    /// </summary>
+    public void OnAnimationHit()
+    {
+        if (_attackState == null)
+        {
+            return;
+        }
+
+        AttackStrategy.ExecuteAttack(this).Forget();
+    }
+
+    /// <summary>
+    /// 애니메이터 기본 공격 종료 함수.
+    /// </summary>
+    public void OnAnimationAttackEnd()
+    {
+        _state = Enums.eSTATE.Idle;
+        SetState(_state);
+    }
 }
