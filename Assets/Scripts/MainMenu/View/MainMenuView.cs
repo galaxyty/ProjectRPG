@@ -3,7 +3,7 @@ using R3;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MainMenuView : BaseView
+public class MainMenuView : BaseView<MainMenuPresenter>
 {
     [SerializeField]
     private Button _btnNext;

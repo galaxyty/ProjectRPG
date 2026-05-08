@@ -1,11 +1,23 @@
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-public abstract class BaseView : MonoBehaviour
+public abstract class BaseView<TPresenter> : MonoBehaviour
 {
     /// <summary>
-    /// 리소스 초기화.
+    /// 프레젠트.
     /// </summary>
-    /// <returns></returns>
-    public abstract UniTask InitializationAsync();    
+    protected TPresenter _presenter;
+
+    /// <summary>
+    /// 리소스 초기화.
+    /// </summary>    
+    public abstract UniTask InitializationAsync();
+
+    /// <summary>
+    /// 프레젠트 셋팅.
+    /// </summary>
+    public void SetPresenter(TPresenter presenter)
+    {
+        _presenter = presenter;
+    }
 }

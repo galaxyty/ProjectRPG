@@ -35,12 +35,26 @@ public class MonsterSpawn : MonoBehaviour
 
     private void Spawn()
     {
-        var monster = MonsterManager.Instance.Spawn(Consts.kPATH_MONSTER_THIEF);
+        // TODO :: 임시.
+        var data = TableManager.Instance.StageTableDatas.Find(data => data.INDEX == DataManager.Instance.StageUserData.StageLevel.Value);
+
+        if (data == null)
+        {
+            return;
+        }
+
+        var index = UnityEngine.Random.Range(0, data.MONSTER_GROUP.Length);
+
+        var monster = MonsterManager.Instance.Spawn(data.MONSTER_GROUP[index]);
 
         if (monster == null)
         {
             Debug.LogError("몬스터 스폰 반환이 정상적으로 되지 않았습니다");
+            return;
         }
+
+        // 초기화.
+        monster.Initialization(index);
 
         // 몬스터 스폰 위치.
         float mixX = transform.position.x - _spawnRadius;

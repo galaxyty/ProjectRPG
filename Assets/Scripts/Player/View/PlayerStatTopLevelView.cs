@@ -2,7 +2,7 @@ using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerStatTopLevelView : BaseView
+public class PlayerStatTopLevelView : BaseView<PlayerStatTopLevelPresenter>
 {
     [SerializeField]
     private Text _txtLevel;

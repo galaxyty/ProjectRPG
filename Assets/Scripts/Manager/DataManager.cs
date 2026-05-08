@@ -12,6 +12,9 @@ public class DataManager : BaseObjectSingleton<DataManager>
     // 재화 데이터.
     public CurrencyUserData CurrencyUserData { get; private set; } = new();
 
+    // 스테이지 데이터.
+    public StageUserData StageUserData { get; private set; } = new();
+
     // 세이브 데이터.
     private SaveData _saveData = new();
 
@@ -40,6 +43,7 @@ public class DataManager : BaseObjectSingleton<DataManager>
         // 함수를 추가하여 데이터 저장을 구현할 것.
         SaveStat();         // 스탯 저장.
         SaveCurrency();     // 재화 저장.
+        SaveStage();        // 스테이지 저장.
 
         // C# -> Json으로 직렬화 시켜 로컬 저장.
         var json = JsonConvert.SerializeObject(_saveData);
@@ -73,6 +77,7 @@ public class DataManager : BaseObjectSingleton<DataManager>
         // 함수를 추가하여 데이터 로드를 구현할 것.
         LoadStat(data);         // 스탯 로드.
         LoadCurrency(data);     // 재화 로드.
+        LoadStage(data);        // 스테이지 로드.
 
         Debug.Log($"데이터 로드 완료");
     }
@@ -101,6 +106,7 @@ public class DataManager : BaseObjectSingleton<DataManager>
     {
         StatUserData.Dispose();
         CurrencyUserData.Dispose();
+        StageUserData.Dispose();
 
         return UniTask.CompletedTask;
     }
@@ -121,6 +127,12 @@ public class DataManager : BaseObjectSingleton<DataManager>
         _saveData.CurrencySaveData.GOLD = CurrencyUserData.Gold.CurrentValue;
     }
 
+    // 스테이지 저장.
+    private void SaveStage()
+    {
+        _saveData.StageSaveData.STAGE_LEVEL = StageUserData.StageLevel.CurrentValue;
+    }
+
     #endregion
 
     #region Data Load Functions
@@ -137,6 +149,12 @@ public class DataManager : BaseObjectSingleton<DataManager>
     private void LoadCurrency(SaveData data)
     {
         CurrencyUserData.Gold.Value = data.CurrencySaveData.GOLD;
+    }
+
+    // 스테이지 로드.
+    private void LoadStage(SaveData data)
+    {
+        StageUserData.StageLevel.Value = data.StageSaveData.STAGE_LEVEL;
     }
 
     #endregion

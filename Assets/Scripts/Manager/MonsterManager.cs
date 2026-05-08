@@ -1,12 +1,13 @@
 using Cysharp.Threading.Tasks;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Pool;
 
 public class MonsterManager : BaseObjectSingleton<MonsterManager>
 {
     // 몬스터 프리팹 캐시용.
-    private Dictionary<string, GameObject> _monsterPrefabs = new();
+    private Dictionary<int, GameObject> _monsterPrefabs = new();
 
     // 몬스터 풀.
     private Dictionary<GameObject, ObjectPool<BaseMonster>> _poolDic = new();
@@ -19,6 +20,9 @@ public class MonsterManager : BaseObjectSingleton<MonsterManager>
 
     private bool _isReady = false;
 
+    // 몬스터 최대 수.
+    private const int kMAX_MONSTER_COUNT = 3;
+
     /// <summary>
     /// 초기화 완료 여부.
     /// </summary>
@@ -29,12 +33,21 @@ public class MonsterManager : BaseObjectSingleton<MonsterManager>
     }
 
     // 초기화.
-    public async UniTask Initialization()
+    public async UniTask Initialization(List<MonsterGroupTableData> list)
     {
-        // 몬스터 프리팹.
-        _monsterPrefabs[Consts.kPATH_MONSTER_THIEF] = await ResourceManager.Instance.LoadAsync<GameObject>(Consts.kPATH_MONSTER_THIEF);
+        if (list == null)
+        {
+            Debug.LogError("MonsterGroupTableData 테이블 데이터가 비어있음");
+            return;
+        }
 
-        // 풀링 생성.
+        // 몬스터 테이블에서 모든 몬스터를 프리팹 생성한다음 캐싱.
+        foreach (var monster in list)
+        {
+            _monsterPrefabs[monster.INDEX] = await ResourceManager.Instance.LoadAsync<GameObject>(Consts.MonsterKeyMap[monster.INDEX]);
+        }
+
+        // 각 몬스터 키를 기준으로 풀링 생성.
         foreach (var prefab in _monsterPrefabs.Values)
         {
             _poolDic[prefab] = new ObjectPool<BaseMonster>(
@@ -71,29 +84,37 @@ public class MonsterManager : BaseObjectSingleton<MonsterManager>
     }
 
     /// <summary>
-    /// 해당 타입 몬스터 스폰.
+    /// 해당 인덱스 몬스터 스폰.
     /// </summary>
-    public BaseMonster Spawn(string name)
+    public BaseMonster Spawn(int index)
     {
-        var pool = _poolDic[_monsterPrefabs[name]];
+        // 몬스터 소환 수 확인.
+        int totalMonsterCount = _activeMonsterDic.Values.Sum(list => list.Count);
 
+        if (kMAX_MONSTER_COUNT <= totalMonsterCount)
+        {
+            return null;
+        }
+
+        // 풀에서 해당 몬스터 키를 가져온다.
+        var pool = _poolDic[_monsterPrefabs[index]];
+
+        // 풀에 있는지 null 체크.
         if (pool == null)
         {
             Debug.Log($"{name} 이(가) _poolDic 키에 존재하지 않음");
             return null;
         }
 
-        // 풀에서 가져옴.
-        var monster = _poolDic[_monsterPrefabs[name]].Get();
+        // 해당 몬스터가 있다면 풀에서 가져옴.
+        var monster = pool.Get();
 
+        // null 체크.
         if (monster == null)
         {
             Debug.Log($"{monster} 이(가) 풀링에 없어서 못 가져옴");
             return null;
-        }
-
-        // 초기화.
-        monster.Initialization();
+        }        
 
         // 활성화 딕셔너리 추가.
         _activeMonsterDic[monster.Type].Add(monster);
@@ -107,13 +128,13 @@ public class MonsterManager : BaseObjectSingleton<MonsterManager>
     /// <summary>
     /// 몬스터 사망.
     /// </summary>
-    public void Die(BaseMonster monster, string name)
+    public void Die(BaseMonster monster, int index)
     {        
-        var pool = _poolDic[_monsterPrefabs[name]];
+        var pool = _poolDic[_monsterPrefabs[index]];
 
         if (pool == null)
         {
-            Debug.Log($"{name} 이(가) _poolDic 키에 존재하지 않음");
+            Debug.LogError($"{monster} 이(가) _poolDic 키에 존재하지 않음");
             return;
         }
 

@@ -31,9 +31,11 @@ public class MainMenuFactory : IFactory
 
         // ÇÁ·¹Á¨Æ®.
         MainMenuPresenter presenter = new();
-
-        presenter.SetModel(model);
-        presenter.SetView(view);
+        
+        presenter.SetModelView(model, view);
         presenter.Initialization();
+
+        // ºä¿¡ ÇÁ·¹Á¨Æ® ¼ÂÆÃ.
+        view.SetPresenter(presenter);
     }
 }

@@ -36,20 +36,22 @@ public class PlayerStatTopFactory : IFactory
         PlayerStatTopLevelPresenter levelPresenter = new(model);
 
         // 각 프레젠트 초기화.
-        hpPresenter.SetModel(model);
-        hpPresenter.SetView(hpView);
+        hpPresenter.SetModelView(model, hpView);
         hpPresenter.Initialization();
-
-        expPresenter.SetModel(model);
-        expPresenter.SetView(expView);
+        
+        expPresenter.SetModelView(model, expView);
         expPresenter.Initialization();
-
-        iconPresenter.SetModel(model);
-        iconPresenter.SetView(iconView);
+        
+        iconPresenter.SetModelView(model, iconView);
         iconPresenter.Initialization();
-
-        levelPresenter.SetModel(model);
-        levelPresenter.SetView(levelView);
+        
+        levelPresenter.SetModelView(model, levelView);
         levelPresenter.Initialization();
+
+        // 뷰에 프레젠트 셋팅.
+        hpView.SetPresenter(hpPresenter);
+        expView.SetPresenter(expPresenter);
+        iconView.SetPresenter(iconPresenter);
+        levelView.SetPresenter(levelPresenter);
     }
 }

@@ -1,6 +1,19 @@
 
+using System.Collections.Generic;
+
 public static class Consts
-{    
+{
+    // 몬스터 인덱스 매핑.
+    public static Dictionary<int, string> MonsterKeyMap = new()
+    {
+        {0, "Prefabs/Monster/MonsterThief"},
+        {1, "Prefabs/Monster/MonsterThief"},
+    };
+
+    // 상태 조건 공유 인스턴스.
+    public static TargetOutOfRangeDecide TargetOutOfRangeDecide = new();
+    public static TargetInOfRangeDecide TargetInOfRangeDecide = new();
+
     // 프리팹.
     public static string kPATH_PLAYER_STAT_VIEW = "Prefabs/PlayerStatView";
     public static string kPATH_MAIN_MENU_VIEW = "Prefabs/MainMenuView";
@@ -15,7 +28,6 @@ public static class Consts
     public static string kPATH_JSON_MONSTER_GROUP = "Json/MONSTER_GROUP";
 
     // 오브젝트.
-    public static string kPATH_MONSTER_THIEF = "Prefabs/Monster/MonsterThief";
     public static string kPATH_PLAYER_STAT_TOP_VIEW = "Prefabs/UI/Player/PlayerStatTopView";
 
     // 애니메이터 키.

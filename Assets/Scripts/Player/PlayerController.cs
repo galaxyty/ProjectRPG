@@ -1,7 +1,6 @@
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.TextCore.Text;
 
 public class PlayerController : BaseCharacter
 {
@@ -15,8 +14,8 @@ public class PlayerController : BaseCharacter
         ReverseAttackTime = 200;
 
         // 상태 변경 조건 룰 추가.
-        _decideSystem.AddRule(new TargetOutOfRangeDecide(), Enums.eSTATE.Move);
-        _decideSystem.AddRule(new TargetInOfRangeDecide(), Enums.eSTATE.Attack);
+        _decideSystem.AddRule(Consts.TargetOutOfRangeDecide, Enums.eSTATE.Move);
+        _decideSystem.AddRule(Consts.TargetInOfRangeDecide, Enums.eSTATE.Attack);
 
         // 움직임 로직 셋팅.
         MoveStrategy = new StraightMove(_moveSpeed);
@@ -24,8 +23,11 @@ public class PlayerController : BaseCharacter
         // 일반 공격 로직 셋팅.
         AttackStrategy = new MeleeAOEAttack(_kATTACK_RANGE);
 
-        _currentHP = DataManager.Instance.StatUserData.HP;
-        _currentEXP = DataManager.Instance.StatUserData.EXP;
+        // 모델 가져옴.
+        var model = RepositoryManager.Instance.PlayerStatModelRepository.Get();
+
+        _currentHP = model.CurrentHP;
+        _currentEXP = model.CurrentEXP;
 
         base.Awake();
     }

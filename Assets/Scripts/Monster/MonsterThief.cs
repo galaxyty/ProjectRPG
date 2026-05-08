@@ -10,8 +10,8 @@ public class MonsterThief : BaseMonster
         ReverseAttackTime = 200;
 
         // 상태 변경 조건 룰 추가.
-        _decideSystem.AddRule(new TargetOutOfRangeDecide(), Enums.eSTATE.Move);
-        _decideSystem.AddRule(new TargetInOfRangeDecide(), Enums.eSTATE.Attack);
+        _decideSystem.AddRule(Consts.TargetOutOfRangeDecide, Enums.eSTATE.Move);
+        _decideSystem.AddRule(Consts.TargetInOfRangeDecide, Enums.eSTATE.Attack);
 
         // 움직임 로직 셋팅.
         MoveStrategy = new StraightMove(_moveSpeed);
@@ -30,9 +30,11 @@ public class MonsterThief : BaseMonster
         base.Update();
     }
 
-    public override void Initialization()
+    public override void Initialization(int index)
     {
         Debug.Log("도적 몬스터 초기화");
+
+        _index = index;
 
         Type = Enums.MonsterType.Normal;
         _spriteRenderer.color = new Color(1, 1, 1);
@@ -44,7 +46,7 @@ public class MonsterThief : BaseMonster
     {
         Debug.Log("도적 몬스터 사망");
         
-        MonsterManager.Instance.Die(this, Consts.kPATH_MONSTER_THIEF);
+        MonsterManager.Instance.Die(this, _index);
 
         // 경험치 획득.
         Target?.AddEXP(400);

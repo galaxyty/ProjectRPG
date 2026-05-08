@@ -2,7 +2,7 @@ using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerStatTopEXPView : BaseView
+public class PlayerStatTopEXPView : BaseView<PlayerStatTopEXPPresenter>
 {
     [SerializeField]
     private Slider _expSlider;

@@ -1,8 +1,6 @@
-using UnityEngine;
+using static UnityEditor.Profiling.HierarchyFrameDataView;
 
 public abstract class BasePresenter<TView, TModel>
-    where TView : BaseView
-    where TModel : BaseModel
 {
     /// <summary>
     /// ºä.
@@ -15,21 +13,12 @@ public abstract class BasePresenter<TView, TModel>
     protected TModel _model;
 
     /// <summary>
-    /// ºä ¼ÂÆÃ.
+    /// ¸ðµ¨, ºä ¼ÂÆÃ.
     /// </summary>
-    public void SetView(TView view)
-    {
-        _view = view;        
-    }
-
-    /// <summary>
-    /// ¸ðµ¨ ¼ÂÆÃ.
-    /// </summary>    
-    public void SetModel(TModel model)
+    public void SetModelView(TModel model, TView view)
     {
         _model = model;
-
-        OnBindModel();
+        _view = view;        
     }
 
     /// <summary>
