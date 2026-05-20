@@ -18,8 +18,8 @@ public class DataManager : BaseObjectSingleton<DataManager>
     // 세이브 데이터.
     private SaveData _saveData = new();
 
-    // 세이브 키.
-    private const string kSAVE_KEY = "SAVE";
+    // 로컬 저장 서비스.
+    private ISaveService _localSaveService;    
 
     // 로컬 자동 저장 시간 주기 (초).
     private const double kSAVE_COUNT = 5;
@@ -47,9 +47,8 @@ public class DataManager : BaseObjectSingleton<DataManager>
 
         // C# -> Json으로 직렬화 시켜 로컬 저장.
         var json = JsonConvert.SerializeObject(_saveData);
-
-        PlayerPrefs.SetString(kSAVE_KEY, json);
-        PlayerPrefs.Save();
+        
+        _localSaveService.Save(json);              // 로컬 저장.
 
         IsDirty = false;
 
@@ -61,17 +60,16 @@ public class DataManager : BaseObjectSingleton<DataManager>
     /// </summary>
     public void Load()
     {
-        if (PlayerPrefs.HasKey(kSAVE_KEY) == false)
-        {
-            Debug.LogError($"{kSAVE_KEY} 데이터가 존재하지 않음");
+        // Json -> C#으로 역직렬화 시키고 C# 코드로 쓸 수 있게 함.
+        var json = _localSaveService.Load();       // 로컬 불러오기.
 
-            // 1레벨 데이터로 셋팅.
+        if (string.IsNullOrEmpty(json))
+        {
+            // 로컬 키가 없다면.
             StatUserData.InitFirstData();
             return;
         }
 
-        // Json -> C#으로 역직렬화 시키고 C# 코드로 쓸 수 있게 함.
-        var json = PlayerPrefs.GetString(kSAVE_KEY);
         var data = JsonConvert.DeserializeObject<SaveData>(json);
 
         // 함수를 추가하여 데이터 로드를 구현할 것.
@@ -87,6 +85,8 @@ public class DataManager : BaseObjectSingleton<DataManager>
     /// </summary>
     public override UniTask InitializationAsync()
     {
+        _localSaveService = new LocalSaveService();
+
         StatUserData.Initialization();
         CurrencyUserData.Initialization();
 

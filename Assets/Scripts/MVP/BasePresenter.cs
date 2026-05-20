@@ -1,5 +1,3 @@
-using static UnityEditor.Profiling.HierarchyFrameDataView;
-
 public abstract class BasePresenter<TView, TModel>
 {
     /// <summary>
