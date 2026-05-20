@@ -19,7 +19,7 @@ public class DataManager : BaseObjectSingleton<DataManager>
     private SaveData _saveData = new();
 
     // 로컬 저장 서비스.
-    private ISaveService _localSaveService;    
+    private ISaveService _localSaveService = new LocalSaveService();
 
     // 로컬 자동 저장 시간 주기 (초).
     private const double kSAVE_COUNT = 5;
@@ -85,8 +85,6 @@ public class DataManager : BaseObjectSingleton<DataManager>
     /// </summary>
     public override UniTask InitializationAsync()
     {
-        _localSaveService = new LocalSaveService();
-
         StatUserData.Initialization();
         CurrencyUserData.Initialization();
 
